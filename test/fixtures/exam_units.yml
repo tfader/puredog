@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  exam: one
+  unit: one
+  is_default: 1
+
+two:
+  exam: two
+  unit: two
+  is_default: 1

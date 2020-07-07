@@ -1,0 +1,15 @@
+<%= form_with model: [@exam, @exam_variety], autocomplete: :off, local: true do |form| %>
+
+  <div class="form-group">
+    <div class="form-text"><%= 'Gatunek' %></div>
+    <%= form.collection_select :variety_id, @varieties.all.order(:name), :id, :name, include_blank: false,  multiple: false, :class => 'form-control', :option => 'Small select' %>
+  </div>
+
+  <div class="mt-4">
+    <div class="d-flex justify-content-between">
+      <%= form.submit 'Zapisz', class: 'btn btn-sm btn-primary' %>
+      <%= link_to 'Powrót', exam_exam_varieties_path(@exam), class: 'btn btn-sm btn-secondary' %>
+    </div>
+  </div>
+
+<% end %>

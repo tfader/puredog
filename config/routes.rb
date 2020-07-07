@@ -26,7 +26,10 @@ Rails.application.routes.draw do
 
   resources :varieties
 
-  resources :exams
+  resources :exams do
+    resources :exam_varieties
+    resources :exam_units
+  end
 
   resources :exam_attrs
 
