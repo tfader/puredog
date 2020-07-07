@@ -14,7 +14,7 @@ class Employee < ApplicationRecord
 
   def current_spot(p_date = DateTime.now)
     if employee_spots.present?
-      employee_spots.where('? between date_from and date_to', p_date).first.spot.name
+      employee_spots.where('? between date_from and date_to', p_date).first
     else
       nil
     end
