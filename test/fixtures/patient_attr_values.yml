@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  pattient_attr: one
+  attr_value: MyString
+
+two:
+  pattient_attr: two
+  attr_value: MyString

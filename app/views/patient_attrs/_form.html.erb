@@ -1,14 +1,22 @@
-<%= form_with model: [@employee, @employee_user], autocomplete: :off, local: true do |form| %>
+<%= form_with model: @patient_attr, autocomplete: :off, local: true do |form| %>
 
   <div class="form-group">
-    <div class="form-text"><%= 'Użytkownik' %></div>
-    <%= form.collection_select :user_id, User.where('id not in (select user_id from employee_users)').all, :id, :email, include_blank: false,  multiple: false, :class => 'form-control', :option => 'Small select' %>
+    <div class="form-text"><%= 'Atrybut' %></div>
+    <%= form.collection_select :attr_id, Attr
+        .where('attrs.id not in (select attr_id from patient_attrs)')
+        .joins(:attr_class).order('attr_classes.name').order('attrs.name')
+        .all, :id, :name_with_class_name, include_blank: false,  multiple: false, :class => 'form-control', :option => 'Small select' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.check_box :mandatory, class: 'input', id: 'paid', type: 'checkbox' %>
+    <label><%= 'Obowiązkowy' %></label>
   </div>
 
   <div class="mt-4">
     <div class="d-flex justify-content-between">
       <%= form.submit 'Zapisz', class: 'btn btn-sm btn-primary' %>
-      <%= link_to 'Powrót', employees_path, class: 'btn btn-sm btn-secondary' %>
+      <%= link_to 'Powrót', patient_attrs_path, class: 'btn btn-sm btn-secondary' %>
     </div>
   </div>
 

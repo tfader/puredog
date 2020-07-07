@@ -2,22 +2,17 @@
   <div class="col">
     <div class="d-flex justify-content-between">
       <%= link_to 'Powrót', root_path, class: 'btn btn-sm btn-secondary' %>
-      <%= link_to 'Nowy', new_spot_path, class: 'btn btn-sm btn-primary' %>
+      <%= link_to 'Nowy', new_material_path, class: 'btn btn-sm btn-primary' %>
     </div>
   </div>
 </div>
 <div class="row mt-3">
-  <% @spots.each do |spot| %>
+  <% @materials.each do |material| %>
     <div class="col-md-4 col-sm-12">
       <div class="card m-1 mb-3">
         <div class="card-body">
-          <h5 class="card-title"><%= spot.name %></h5>
-          <h6 class="card-subtitle mb-2 text-muted"><%= spot.city.name %>
-          </h6>
-          <p class="card-text">
-            <%= spot.street %>
-          </p>
-          <%= link_to 'Edycja', edit_spot_path(spot), class: 'card-link' %>
+          <h5 class="card-title"><%= material.name %></h5>
+          <%= link_to 'Edycja', edit_material_path(material), class: 'card-link' %>
         </div>
       </div>
     </div>

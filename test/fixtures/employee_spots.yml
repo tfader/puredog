@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  employee: 
+  spot: one
+  date_from: 2020-07-07
+  date_to: 2020-07-07
+
+two:
+  employee: 
+  spot: two
+  date_from: 2020-07-07
+  date_to: 2020-07-07

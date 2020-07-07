@@ -1,23 +1,71 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <%= link_to('Home', root_path, class: 'nav-link') %>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <%= 'Słowniki' %>
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <%= link_to('Pracownicy', employees_path, class: 'nav-link') %>
+<% if current_employee.present? %>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="navbar-brand" href="/">
+            <div class="logo-image">
+              <%= image_tag('cat--v3.png', class: 'img-fluid') %>
+            </div>
+          </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= 'Słowniki' %>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <%= link_to('Pracownicy', employees_path, class: 'nav-link') %>
+            <div class="dropdown-divider"></div>
+            <%= link_to('Placówki', spots_path, class: 'nav-link') %>
+            <div class="dropdown-divider"></div>
+            <%= link_to('Klasy atrybutów', attr_classes_path, class: 'nav-link') %>
+            <div class="dropdown-divider"></div>
+            <%= link_to('Atrybuty pacjentów', patient_attrs_path, class: 'nav-link') %>
+            <div class="dropdown-divider"></div>
+            <%= link_to('Materiały', materials_path, class: 'nav-link') %>
+            <div class="dropdown-divider"></div>
+            <%= link_to('Gatunki', varieties_path, class: 'nav-link') %>
+          </div>
+        </li>
+        <li class="nav-item">
+          <%= link_to('Pacjenci', patients_path, class: 'nav-link') %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Wyloguj', destroy_user_session_path, method: :delete, class: 'nav-link' %>
+        </li>
+      </ul>
+    </div>
+  </nav>
+<% else %>
+  <% if current_user.present? %>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="navbar-brand" href="/">
+              <div class="logo-image">
+                <%= image_tag('cat--v3.png', class: 'img-fluid') %>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Wyloguj', destroy_user_session_path, method: :delete, class: 'nav-link' %>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="row">
+      <div class="col">
+        <div class="alert alert-secondary text-center" role="alert">
+          <%= 'Twoje konto nie jest jeszcze aktywne' %>
         </div>
-      </li>
-      <li class="nav-item">
-        <%= link_to 'Wyloguj', destroy_user_session_path, method: :delete, class: 'nav-link' %>
-      </li>
-    </ul>
-  </div>
-</nav>
+      </div>
+    </div>
+  <% end %>
+<% end %>

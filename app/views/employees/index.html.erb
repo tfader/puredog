@@ -1,0 +1,52 @@
+<div class="row mt-3">
+  <div class="col">
+    <div class="d-flex justify-content-between">
+      <%= link_to 'Powrót', root_path, class: 'btn btn-sm btn-secondary' %>
+      <%= link_to 'Nowy', new_employee_path, class: 'btn btn-sm btn-primary' %>
+    </div>
+  </div>
+</div>
+<div class="row mt-3">
+  <% @employees.each do |employee| %>
+    <div class="col-md-4 col-sm-12">
+      <div class="card m-1 mb-3">
+        <div class="card-body">
+          <h5 class="card-title"><%= employee.last_name %></h5>
+          <h6 class="card-subtitle mb-2 text-muted"><%= employee.first_second_name %>
+          </h6>
+          <% if employee.employee_user.blank? %>
+            <p class="card-text italic">
+              <%= 'Bez użytkownika' %>
+            </p>
+          <% else %>
+            <p class="card-text">
+              <%= employee.employee_user.user.email %>
+            </p>
+          <% end %>
+          <% if employee.employee_spots.blank? %>
+            <p class="card-text italic">
+              <%= 'Bez placówki' %>
+            </p>
+          <% else %>
+            <p class="card-text">
+              <%= 'Placówka: ' %><%= employee.current_spot %>
+            </p>
+          <% end %>
+          <div class="d-flex justify-content-start">
+            <%= link_to 'Edycja', edit_employee_path(employee), class: 'card-link' %>
+            <% if employee.employee_user.blank? %>
+              <%= link_to 'Przypisz użytkownika', new_employee_employee_user_path(employee), class: 'card-link' %>
+            <% end %>
+          </div>
+
+          <div class="d-flex justify-content-start">
+            <% if employee.employee_spots.blank? %>
+              <%= link_to 'Przypisz placówkę', new_employee_employee_spot_path(employee), class: 'card-link' %>
+            <% end %>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -2,20 +2,20 @@
   <div class="col">
     <div class="d-flex justify-content-between">
       <%= link_to 'Powrót', attr_classes_path, class: 'btn btn-sm btn-secondary' %>
-      <%= link_to 'Nowy', new_attr_class_attr_path(@attr_class), class: 'btn btn-sm btn-primary' %>
+      <%= link_to 'Nowy', new_patient_attr_path, class: 'btn btn-sm btn-primary' %>
     </div>
   </div>
 </div>
 <div class="row mt-3">
-  <% @attributes.each do |attribute| %>
+  <% @patient_attrs.each do |patient_attr| %>
     <div class="col-md-4 col-sm-12">
       <div class="card m-1 mb-3">
         <div class="card-body">
-          <h5 class="card-title"><%= attribute.name %></h5>
-          <h6 class="card-subtitle mb-2 text-muted"><%= attribute.attr_value_type %>
-          </h6>
-          <%= link_to 'Edycja', edit_attr_class_attr_path(@attr_class, attribute), class: 'card-link' %>
-          <%= link_to 'Usuń', attr_class_attr_path(@attr_class, attribute), method: :delete, class: 'card-link red' %>
+          <h5 class="card-title"><%= patient_attr.attr.name_with_class_name %></h5>
+          <h6 class="card-subtitle mb-2 text-muted"><%= patient_attr.attr.attr_value_type %></h6>
+          <p class="card-subtitle mb-2 text-muted"><%= 'Wymagany: ' %><%= patient_attr.mandatory_desc %></p>
+
+          <%= link_to 'Usuń', patient_attr_path(patient_attr), method: :delete, class: 'card-link red' %>
         </div>
       </div>
     </div>

@@ -1,8 +1,8 @@
-<%= form_with model: [@employee, @employee2user], autocomplete: :off, local: true do |form| %>
+<%= form_with model: [@employee, @employee_user], autocomplete: :off, local: true do |form| %>
 
   <div class="form-group">
     <div class="form-text"><%= 'Użytkownik' %></div>
-    <%= form.collection_select :user_id, User.where('id not in (select user_id from employee2users)').all, :id, :email, include_blank: false,  multiple: false, :class => 'form-control', :option => 'Small select' %>
+    <%= form.collection_select :user_id, User.where('id not in (select user_id from employee_users)').all, :id, :email, include_blank: false,  multiple: false, :class => 'form-control', :option => 'Small select' %>
   </div>
 
   <div class="mt-4">

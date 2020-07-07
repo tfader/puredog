@@ -2,38 +2,36 @@
   <div class="col">
     <div class="d-flex justify-content-between">
       <%= link_to 'Powrót', root_path, class: 'btn btn-sm btn-secondary' %>
-      <%= link_to 'Nowy', new_employee_path, class: 'btn btn-sm btn-primary' %>
+      <%= link_to 'Nowy', new_patient_path, class: 'btn btn-sm btn-primary' %>
     </div>
   </div>
 </div>
 <div class="row mt-3">
-  <% @employees.each do |employee| %>
+  <% @patients.each do |patient| %>
     <div class="col-md-4 col-sm-12">
       <div class="card m-1 mb-3">
         <div class="card-body">
-          <h5 class="card-title"><%= employee.last_name %></h5>
-          <h6 class="card-subtitle mb-2 text-muted"><%= employee.first_second_name %>
-          </h6>
-          <% if employee.employee2user.blank? %>
-            <p class="card-text">
-              <%= 'Ten pracownik' %>
-              <br>
-              <span class="italic">
-                <%= 'nie ma jeszcze przypisanego użytkownika' %>
-              </span>
-            </p>
-          <% else %>
-            <p class="card-text">
-              <%= 'Ten pracownik ma przypisanego użytkownika: ' %>
-              <span class="bold">
-                <%= employee.employee2user.user.email %>
-              </span>
-            </p>
+          <div class="d-flex justify-content-between">
+            <h5 class="card-title mb-4"><%= patient.name %></h5>
+            <% if patient.variety.file_icon.present? %>
+              <%= inline_svg_tag(patient.variety.file_icon, class: 'fill-black svg') %>
+            <% else %>
+              <%= patient.variety.name %>
+            <% end %>
+          </div>
+          <% @patient_attr.each do |patient_attr| %>
+            <% if patient.attr_present(patient_attr.attr.id).blank? %>
+              <p class="card-text">
+                <%= patient_attr.attr.name_with_class_name %><%= ': ' %><%= link_to('Dodaj', new_patient_attr_patient_attr_value_path(patient, patient_attr.attr)) %>
+              </p>
+            <% else %>
+              <p class="card-text">
+                <%= patient_attr.attr.name_with_class_name %><%= ': ' %><%= link_to(patient.attr_value(patient_attr.attr.id), edit_patient_attr_patient_attr_value_path(patient, patient_attr.attr, patient.attr_present(patient_attr.attr))) %>
+              </p>
+            <% end %>
+
           <% end %>
-          <%= link_to 'Edycja', edit_employee_path(employee), class: 'card-link' %>
-          <% if employee.employee2user.blank? %>
-            <%= link_to 'Przypisz użytkownika', new_employee_employee2user_path(employee), class: 'card-link' %>
-          <% end %>
+          <%= link_to 'Edycja', edit_patient_path(patient), class: 'card-link' %>
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@
   <div class="col">
     <div class="d-flex justify-content-between">
       <%= link_to 'Powrót', attr_classes_path, class: 'btn btn-sm btn-secondary' %>
-      <%= link_to 'Nowy', new_attr_class_attribute_path(@attr_class), class: 'btn btn-sm btn-primary' %>
+      <%= link_to 'Nowy', new_attr_class_attr_path(@attr_class), class: 'btn btn-sm btn-primary' %>
     </div>
   </div>
 </div>
@@ -14,8 +14,8 @@
           <h5 class="card-title"><%= attribute.name %></h5>
           <h6 class="card-subtitle mb-2 text-muted"><%= attribute.attr_value_type %>
           </h6>
-          <%= link_to 'Edycja', edit_attr_class_attribute_path(@attr_class, attribute), class: 'card-link' %>
-          <%= link_to 'Usuń', attr_class_attribute_path(@attr_class, attribute), method: :delete, class: 'card-link red' %>
+          <%= link_to 'Edycja', edit_attr_class_attr_path(@attr_class, attribute), class: 'card-link' %>
+          <%= link_to 'Usuń', attr_class_attr_path(@attr_class, attribute), method: :delete, class: 'card-link red' %>
         </div>
       </div>
     </div>
