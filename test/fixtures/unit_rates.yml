@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  unit: one
+  rate_from: 1
+  rate_to: 1
+
+two:
+  unit: two
+  rate_from: 1
+  rate_to: 1

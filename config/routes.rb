@@ -32,4 +32,8 @@ Rails.application.routes.draw do
 
   resources :exam_groups
 
+  resources :units do
+    resources :unit_rates
+  end
+
 end

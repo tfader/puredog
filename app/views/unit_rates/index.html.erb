@@ -1,0 +1,27 @@
+<div class="row mt-3">
+  <div class="col">
+    <div class="d-flex justify-content-between">
+      <%= link_to 'Powrót', units_path, class: 'btn btn-sm btn-secondary' %>
+      <%= link_to 'Nowy', new_unit_unit_rate_path(@unit), class: 'btn btn-sm btn-primary' %>
+    </div>
+  </div>
+</div>
+<div class="row mt-3">
+  <% @unit_rates.each do |unit_rate| %>
+    <div class="col-md-4 col-sm-12">
+      <div class="card m-1 mb-3">
+        <div class="card-body">
+          <div class="d-flex justify-content-between mb-3">
+            <h5 class="card-title"><%= unit_rate.from_unit.code %></h5>
+            <%= inline_svg_tag('arrow_forward-black-18dp.svg', class: 'fill-black') %>
+            <h5 class="card-title"><%= unit_rate.to_unit.code %></h5>
+          </div>
+          <div class="d-flex justify-content-between">
+            <h6 class="card-subtitle mb-2 text-muted"><%= unit_rate.rate_from %></h6>
+            <h6 class="card-subtitle mb-2 text-muted"><%= unit_rate.rate_to %></h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
