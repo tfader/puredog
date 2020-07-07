@@ -29,7 +29,6 @@
             </p>
           <% else %>
             <p class="card-text">
-              <% byebug %>
               <%= 'Placówka: ' %><%= employee.current_spot.spot.name if employee.current_spot.present? %>
             </p>
           <% end %>
