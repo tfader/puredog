@@ -11,8 +11,11 @@
     <div class="col-md-4 col-sm-12">
       <div class="card m-1 mb-3">
         <div class="card-body">
-          <h5 class="card-title"><%= exam.name %></h5>
-          <%= link_to 'Edycja', edit_material_path(exam), class: 'card-link' %>
+          <h5 class="card-title mb-3"><%= exam.name %></h5>
+          <h6 class="card-subtitle mb-3 text-muted"><%= 'Grupa: ' %><%= exam.exam_group.name %></h6>
+          <h6 class="card-subtitle mb-2 text-muted"><%= 'Materiał: ' %><%= exam.material.name %></h6>
+          <p class="card-text description"><%= exam.description %></p>
+          <%= link_to 'Edycja', edit_exam_path(exam), class: 'card-link' %>
         </div>
       </div>
     </div>

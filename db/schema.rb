@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_07_090150) do
+ActiveRecord::Schema.define(version: 2020_07_07_124707) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,10 +67,29 @@ ActiveRecord::Schema.define(version: 2020_07_07_090150) do
     t.integer "active", default: 1
   end
 
+  create_table "exam_attrs", force: :cascade do |t|
+    t.bigint "attr_id"
+    t.integer "mandatory", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["attr_id"], name: "index_exam_attrs_on_attr_id"
+  end
+
+  create_table "exam_groups", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "exams", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "material_id"
+    t.bigint "exam_group_id"
+    t.string "description"
+    t.index ["exam_group_id"], name: "index_exams_on_exam_group_id"
+    t.index ["material_id"], name: "index_exams_on_material_id"
   end
 
   create_table "materials", force: :cascade do |t|
@@ -146,6 +165,9 @@ ActiveRecord::Schema.define(version: 2020_07_07_090150) do
   add_foreign_key "employee_spots", "spots"
   add_foreign_key "employee_users", "employees"
   add_foreign_key "employee_users", "users"
+  add_foreign_key "exam_attrs", "attrs"
+  add_foreign_key "exams", "exam_groups"
+  add_foreign_key "exams", "materials"
   add_foreign_key "patient_attr_values", "attrs"
   add_foreign_key "patient_attr_values", "patients"
   add_foreign_key "patient_attrs", "attrs"

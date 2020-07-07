@@ -28,4 +28,8 @@ Rails.application.routes.draw do
 
   resources :exams
 
+  resources :exam_attrs
+
+  resources :exam_groups
+
 end

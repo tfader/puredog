@@ -5,6 +5,20 @@
     <%= form.text_field :name, class: 'form-control', placeholder: 'Nazwa', autofocus: true, presence: true, :required => 'required' %>
   </div>
 
+  <div class="form-group">
+    <div class="form-text"><%= 'Grupa badań' %></div>
+    <%= form.collection_select :exam_group_id, ExamGroup.all.order(:name), :id, :name, include_blank: false,  multiple: false, :class => 'form-control', :option => 'Small select' %>
+  </div>
+
+  <div class="form-group">
+    <div class="form-text"><%= 'Materiał' %></div>
+    <%= form.collection_select :material_id, Material.all.order(:name), :id, :name, include_blank: false,  multiple: false, :class => 'form-control', :option => 'Small select' %>
+  </div>
+
+  <div class="form-group">
+    <label><%= 'Opis' %></label>
+    <%= form.text_area :description, class: 'form-control', placeholder: 'Opis', autofocus: true, presence: true, :required => 'required' %>
+  </div>
 
   <div class="mt-4">
     <div class="d-flex justify-content-between">

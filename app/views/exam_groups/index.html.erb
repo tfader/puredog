@@ -1,0 +1,22 @@
+<div class="row mt-3">
+  <div class="col">
+    <div class="d-flex justify-content-between">
+      <%= link_to 'Powrót', root_path, class: 'btn btn-sm btn-secondary' %>
+      <%= link_to 'Nowy', new_exam_group_path, class: 'btn btn-sm btn-primary' %>
+    </div>
+  </div>
+</div>
+<div class="row mt-3">
+  <% @exam_groups.each do |exam_group| %>
+    <div class="col-md-4 col-sm-12">
+      <div class="card m-1 mb-3">
+        <div class="card-body">
+          <div class="d-flex justify-exam_group-between">
+            <h5 class="card-title"><%= exam_group.name %></h5>
+          </div>
+          <%= link_to 'Edycja', edit_exam_group_path(exam_group), class: 'card-link' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
