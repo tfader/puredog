@@ -1,0 +1,12 @@
+<% if flash.to_hash.reject { |_k, v| v.empty? }.any? %>
+    <div class="flash" data-behavior="flash_notice">
+      <% flash.each do |key, value| %>
+        <% if key == 'error' %>
+          <div class="alert alert-danger show fade" data-behavior="flash"><%=value %></div>
+        <% end %>
+        <% if key == 'success' %>
+          <div class="alert alert-success show fade" data-behavior="flash"><%=value %></div>
+        <% end %>
+      <% end %>
+    </div>
+<% end %>

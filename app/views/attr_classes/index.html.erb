@@ -1,0 +1,22 @@
+<div class="row mt-3">
+  <div class="col">
+    <div class="d-flex justify-content-between">
+      <%= link_to 'Powrót', root_path, class: 'btn btn-sm btn-secondary' %>
+      <%= link_to 'Nowy', new_patient_path, class: 'btn btn-sm btn-primary' %>
+    </div>
+  </div>
+</div>
+<div class="row mt-3">
+  <% @patients.each do |patient| %>
+    <div class="col-md-4 col-sm-12">
+      <div class="card m-1 mb-3">
+        <div class="card-body">
+          <h5 class="card-title"><%= patient.name %></h5>
+          <h6 class="card-subtitle mb-2 text-muted"><%= '' %>
+          </h6>
+          <%= link_to 'Edycja', edit_patient_path(patient), class: 'card-link' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
