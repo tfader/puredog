@@ -26,4 +26,6 @@ Rails.application.routes.draw do
 
   resources :varieties
 
+  resources :exams
+
 end
