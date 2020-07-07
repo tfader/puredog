@@ -21,7 +21,6 @@ class UnitRatesController < ApplicationController
   def create
     @unit = Unit.find(params[:unit_id])
     @unit_rate = UnitRate.new
-    byebug
     @unit_rate.assign_attributes(:from_unit => @unit, :to_unit => Unit.find(params[:unit_rate][:unit_to_id]), :rate_from => params[:unit_rate][:rate_from], :rate_to => params[:unit_rate][:rate_to])
     if @unit_rate.valid?
       @unit_rate.save
