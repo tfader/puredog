@@ -80,6 +80,7 @@ test:
 #
 production:
   <<: *default
-  database: pure_project_production
-  username: pure_project
+  host: ec2-34-239-241-25.compute-1.amazonaws.com
+  database: dc48rearpj4ub2
+  username: rkdiyeuxjzuonj
   password: <%= ENV['PURE_PROJECT_DATABASE_PASSWORD'] %>
