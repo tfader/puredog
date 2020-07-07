@@ -12,7 +12,7 @@ class Employee < ApplicationRecord
     [first_name, last_name].compact.join(' ')
   end
 
-  def current_spot(p_date = DateTime.now)
+  def current_spot(p_date = DateTime.now.to_date)
     if employee_spots.present?
       employee_spots.where('? between date_from and date_to', p_date).first
     else
