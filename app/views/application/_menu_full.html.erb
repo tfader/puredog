@@ -17,6 +17,8 @@
             <%= 'Słowniki' %>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <%= link_to('Pacjenci', patients_path, class: 'nav-link') %>
+            <div class="dropdown-divider"></div>
             <%= link_to('Pracownicy', employees_path, class: 'nav-link') %>
             <div class="dropdown-divider"></div>
             <%= link_to('Placówki', spots_path, class: 'nav-link') %>
@@ -34,13 +36,9 @@
             <%= link_to('Materiały', materials_path, class: 'nav-link') %>
             <div class="dropdown-divider"></div>
             <%= link_to('Gatunki', varieties_path, class: 'nav-link') %>
+            <div class="dropdown-divider"></div>
+            <%= link_to('Katalog badań', exams_path, class: 'nav-link') %>
           </div>
-        </li>
-        <li class="nav-item">
-          <%= link_to('Pacjenci', patients_path, class: 'nav-link') %>
-        </li>
-        <li class="nav-item">
-          <%= link_to('Katalog badań', exams_path, class: 'nav-link') %>
         </li>
         <li class="nav-item">
           <%= link_to 'Wyloguj', destroy_user_session_path, method: :delete, class: 'nav-link' %>
