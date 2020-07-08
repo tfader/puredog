@@ -36,6 +36,8 @@ class PatientsController < ApplicationController
   def update
     @patient = Patient.find(params[:id])
     @patient.assign_attributes(patient_params)
+    @patient.patron = Patron.search_by_id_or_second(params[:patient][:patron_id])
+    @patient.variety = Variety.search_by_name(params[:patient][:variety_id])
     if @patient.valid?
       @patient.save
       redirect_to patients_path

@@ -45,4 +45,10 @@ Rails.application.routes.draw do
     get :autocomplete_patron_name, on: :collection
   end
 
+  resources :clients
+
+  resources :cities do
+    get :autocomplete_city_name, on: :collection
+  end
+
 end

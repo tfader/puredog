@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_08_060307) do
+ActiveRecord::Schema.define(version: 2020_07_08_064014) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,16 @@ ActiveRecord::Schema.define(version: 2020_07_08_060307) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "default", default: 0
+  end
+
+  create_table "clients", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "city_id"
+    t.string "street"
+    t.string "code"
+    t.index ["city_id"], name: "index_clients_on_city_id"
   end
 
   create_table "employee_spots", force: :cascade do |t|
@@ -208,6 +218,7 @@ ActiveRecord::Schema.define(version: 2020_07_08_060307) do
   end
 
   add_foreign_key "attrs", "attr_classes"
+  add_foreign_key "clients", "cities"
   add_foreign_key "employee_spots", "employees"
   add_foreign_key "employee_spots", "spots"
   add_foreign_key "employee_users", "employees"

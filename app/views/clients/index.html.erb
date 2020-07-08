@@ -1,0 +1,28 @@
+<div class="row mt-3">
+  <div class="col">
+    <div class="d-flex justify-content-between">
+      <%= link_to 'Powrót', root_path, class: 'btn btn-sm btn-secondary' %>
+      <%= @where_you_are %>
+      <%= link_to 'Nowy', new_client_path, class: 'btn btn-sm btn-primary' %>
+    </div>
+  </div>
+</div>
+<div class="row mt-3">
+  <% @clients.each do |client| %>
+    <div class="col-md-4 col-sm-12">
+      <div class="card m-1 mb-3">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <h5 class="card-title mb-4"><%= client.name %></h5>
+          </div>
+          <h6 class="card-subtitle mb-3 text-muted"><%= 'kod: ' %><%= client.code %></h6>
+          <p class="card-text">
+            <%= client.address_name %>
+          </p>
+          <%= link_to 'Edycja', edit_client_path(client), class: 'card-link' %>
+          <%= link_to 'Usuń', client_path(client), method: :delete, class: 'card-link red' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
