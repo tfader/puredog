@@ -24,7 +24,9 @@ Rails.application.routes.draw do
 
   resources :materials
 
-  resources :varieties
+  resources :varieties do
+    get :autocomplete_variety_name, on: :collection
+  end
 
   resources :exams do
     resources :exam_varieties
@@ -37,6 +39,10 @@ Rails.application.routes.draw do
 
   resources :units do
     resources :unit_rates
+  end
+
+  resources :patrons do
+    get :autocomplete_patron_name, on: :collection
   end
 
 end

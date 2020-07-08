@@ -17,6 +17,8 @@ class PatientsController < ApplicationController
   def create
     @patient = Patient.new
     @patient.assign_attributes(patient_params)
+    @patient.patron = Patron.search_by_id_or_second(params[:patient][:patron_id])
+    @patient.variety = Variety.search_by_name(params[:patient][:variety_id])
     if @patient.valid?
       @patient.save
       redirect_to patients_path
@@ -28,6 +30,7 @@ class PatientsController < ApplicationController
 
   def edit
     @patient = Patient.find(params[:id])
+    @patient.patron_id = @patient.patron.id_with_last_name if @patient.patron.present?
   end
 
   def update
@@ -42,9 +45,24 @@ class PatientsController < ApplicationController
     end
   end
 
+  def destroy
+    @patient = Patient.find(params[:id])
+    if @patient.patient_attr_values.delete_all
+      if @patient.delete
+        redirect_to patients_path
+      else
+        flash[:error] = @patient.errors.full_messages.first
+        redirect_to patients_path
+      end
+    else
+      flash[:error] = @patient.errors.full_messages.first
+      redirect_to patients_path
+    end
+  end
+
   private
   def patient_params
-    params.require(:patient).permit(:name, :variety_id)
+    params.require(:patient).permit(:name)
   end
 
 end

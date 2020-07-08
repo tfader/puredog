@@ -4,6 +4,15 @@ class VarietiesController < ApplicationController
     redirect_to varieties_path
   end
 
+  def autocomplete_variety_name
+    name = params[:term].upcase
+    varieties = Variety.where(
+        'upper(varieties.name) LIKE ?',
+        "%#{name}%"
+    ).order(:name).all
+    render :json => varieties.map { |variety| {:id => variety.id, :label => variety.name, :value => variety.name} }
+  end
+
   def index
     @where_you_are = 'Gatunki'
     @varieties = Variety.all.order(:name)

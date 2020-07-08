@@ -1,0 +1,25 @@
+<%= form_with model: @patron, autocomplete: :off, local: true do |form| %>
+
+  <div class="form-group">
+    <label class="bold"><%= 'PESEL' %></label>
+    <%= form.text_field :public_id, class: 'form-control', placeholder: 'PESEL', autofocus: true, presence: true, :required => 'required', :minlength => "11", :maxlength => "11" %>
+  </div>
+
+  <div class="form-group">
+    <label><%= 'Nazwisko' %></label>
+    <%= form.text_field :last_name, class: 'form-control', placeholder: 'Nazwisko', presence: true, :required => 'required' %>
+  </div>
+
+  <div class="form-group">
+    <label><%= 'Imię' %></label>
+    <%= form.text_field :first_name, class: 'form-control', placeholder: 'Imię' %>
+  </div>
+
+  <div class="mt-4">
+    <div class="d-flex justify-content-between">
+      <%= form.submit 'Zapisz', class: 'btn btn-sm btn-primary' %>
+      <%= link_to 'Powrót', patrons_path, class: 'btn btn-sm btn-secondary' %>
+    </div>
+  </div>
+
+<% end %>

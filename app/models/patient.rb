@@ -3,6 +3,7 @@ class Patient < ApplicationRecord
 
   has_many :patient_attr_values
   belongs_to :variety
+  belongs_to :patron
 
   def attr_value(p_attr_id)
     attr_value = patient_attr_values.find_by(:attr_id => p_attr_id)

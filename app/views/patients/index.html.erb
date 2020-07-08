@@ -2,6 +2,7 @@
   <div class="col">
     <div class="d-flex justify-content-between">
       <%= link_to 'Powrót', root_path, class: 'btn btn-sm btn-secondary' %>
+      <%= @where_you_are %>
       <%= link_to 'Nowy', new_patient_path, class: 'btn btn-sm btn-primary' %>
     </div>
   </div>
@@ -19,6 +20,7 @@
               <%= patient.variety.name %>
             <% end %>
           </div>
+          <h6 class="card-subtitle mb-3 text-muted"><%= 'Patron: ' %><%= patient.patron.name_with_id %></h6>
           <% @patient_attr.each do |patient_attr| %>
             <% if patient.attr_present(patient_attr.attr.id).blank? %>
               <p class="card-text">
@@ -29,9 +31,9 @@
                 <%= patient_attr.attr.name_with_class_name %><%= ': ' %><%= link_to(patient.attr_value(patient_attr.attr.id), edit_patient_attr_patient_attr_value_path(patient, patient_attr.attr, patient.attr_present(patient_attr.attr))) %>
               </p>
             <% end %>
-
           <% end %>
           <%= link_to 'Edycja', edit_patient_path(patient), class: 'card-link' %>
+          <%= link_to 'Usuń', patient_path(patient), method: :delete, class: 'card-link red' %>
         </div>
       </div>
     </div>

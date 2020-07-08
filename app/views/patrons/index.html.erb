@@ -1,0 +1,26 @@
+<div class="row mt-3">
+  <div class="col">
+    <div class="d-flex justify-content-between">
+      <%= link_to 'Powrót', root_path, class: 'btn btn-sm btn-secondary' %>
+      <%= @where_you_are %>
+      <%= link_to 'Nowy', new_patron_path, class: 'btn btn-sm btn-primary' %>
+    </div>
+  </div>
+</div>
+<div class="row mt-3">
+  <% @patrons.each do |patron| %>
+    <div class="col-md-4 col-sm-12">
+      <div class="card m-1 mb-3">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <h5 class="card-title mb-4"><%= patron.last_name %></h5>
+            <h5 class="card-title mb-4"><%= patron.public_id %></h5>
+          </div>
+          <h6 class="card-subtitle mb-3 text-muted"><%= patron.first_name %></h6>
+          <%= link_to 'Edycja', edit_patron_path(patron), class: 'card-link' %>
+          <%= link_to 'Usuń', patron_path(patron), method: :delete, class: 'card-link red' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_07_213011) do
+ActiveRecord::Schema.define(version: 2020_07_08_060307) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -148,6 +148,8 @@ ActiveRecord::Schema.define(version: 2020_07_07_213011) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "variety_id"
+    t.bigint "patron_id"
+    t.index ["patron_id"], name: "index_patients_on_patron_id"
     t.index ["variety_id"], name: "index_patients_on_variety_id"
   end
 
@@ -220,6 +222,7 @@ ActiveRecord::Schema.define(version: 2020_07_07_213011) do
   add_foreign_key "patient_attr_values", "attrs"
   add_foreign_key "patient_attr_values", "patients"
   add_foreign_key "patient_attrs", "attrs"
+  add_foreign_key "patients", "patrons"
   add_foreign_key "patients", "varieties"
   add_foreign_key "spots", "cities"
 end
