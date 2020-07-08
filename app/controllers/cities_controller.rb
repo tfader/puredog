@@ -15,7 +15,7 @@ class CitiesController < ApplicationController
   end
 
   def index
-    @where_you_are = 'Gatunki'
+    @where_you_are = 'Miejscowości'
     @cities = City.all.order(:name)
   end
 
