@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_08_075859) do
+ActiveRecord::Schema.define(version: 2020_07_08_122049) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -220,6 +220,23 @@ ActiveRecord::Schema.define(version: 2020_07_08_075859) do
     t.index ["city_id"], name: "index_spots_on_city_id"
   end
 
+  create_table "station_exams", force: :cascade do |t|
+    t.bigint "station_id"
+    t.bigint "exam_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exam_id"], name: "index_station_exams_on_exam_id"
+    t.index ["station_id"], name: "index_station_exams_on_station_id"
+  end
+
+  create_table "stations", force: :cascade do |t|
+    t.bigint "spot_id"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["spot_id"], name: "index_stations_on_spot_id"
+  end
+
   create_table "unit_rates", force: :cascade do |t|
     t.integer "from_unit_id"
     t.integer "to_unit_id"
@@ -283,4 +300,7 @@ ActiveRecord::Schema.define(version: 2020_07_08_075859) do
   add_foreign_key "patients", "patrons"
   add_foreign_key "patients", "varieties"
   add_foreign_key "spots", "cities"
+  add_foreign_key "station_exams", "exams"
+  add_foreign_key "station_exams", "stations"
+  add_foreign_key "stations", "spots"
 end

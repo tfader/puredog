@@ -8,7 +8,11 @@ Rails.application.routes.draw do
     resources :employee_spots
   end
 
-  resources :spots
+  resources :spots do
+    resources :stations do
+      resources :station_exams
+    end
+  end
 
   resources :patient_attrs
 
