@@ -1,8 +1,27 @@
 class Exam < ApplicationRecord
+  validates :name, presence: true, uniqueness: true
+
   belongs_to :exam_group
   belongs_to :material
   has_many :exam_varieties
   has_many :exam_units
+
+  class << self
+    def search_by_name(p_search)
+      p_el = p_search.split
+      exam = nil
+      if p_el.count > 0
+        v_i = 0
+        v_i.upto(p_el.count) do |i|
+          exam = find_by(name: p_el[i])
+          if exam.present?
+            break
+          end
+        end
+      end
+      exam
+    end
+  end
 
   def variety_names
     variety_names = nil
@@ -38,6 +57,10 @@ class Exam < ApplicationRecord
       end
     end
     units_codes
+  end
+
+  def name_with_group_name
+    [exam_group.name, name].compact.join(' / ')
   end
 
 

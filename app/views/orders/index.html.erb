@@ -1,0 +1,26 @@
+<div class="row mt-3">
+  <div class="col">
+    <div class="d-flex justify-content-between">
+      <%= link_to 'Powrót', root_path, class: 'btn btn-sm btn-secondary' %>
+      <h5><%= @where_you_are %></h5>
+      <%= link_to 'Nowe', new_order_path, class: 'btn btn-sm btn-primary' %>
+    </div>
+  </div>
+</div>
+<div class="row mt-3">
+  <% @orders.each do |order| %>
+    <div class="col-md-4 col-sm-12">
+      <div class="card m-1 mb-3">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <h5 class="card-title mb-4"><%= order.id.to_s %></h5>
+            <h5 class="card-title mb-4"><%= order.order_status.name %></h5>
+          </div>
+          <h6 class="card-subtitle mb-3 text-muted"><%= 'Złożone: ' %><%= order.placed %></h6>
+          <%= link_to 'Edycja', order_path(order), class: 'card-link' %>
+          <%= link_to 'Usuń', order_path(order), method: :delete, class: 'card-link red' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

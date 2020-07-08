@@ -4,6 +4,15 @@ class ClientsController < ApplicationController
     redirect_to clients_path
   end
 
+  def autocomplete_client_name
+    name = params[:term].upcase
+    clients = Client.where(
+        'upper(clients.name) LIKE ? or upper(clients.code) like ?',
+        "%#{name}%", "%#{name}%"
+    ).order(:name).all
+    render :json => clients.map { |client| {:id => client.id, :label => client.name_with_city, :value => client.name_with_city} }
+  end
+
   def index
     @where_you_are = 'Klienci'
     @clients = Client.all

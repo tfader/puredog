@@ -1,0 +1,25 @@
+<script type="text/javascript" charset="utf-8">
+    $("form").bind("keydown", function(e) {
+        if (e.keyCode === 13) return false;
+    });
+</script>
+<%= form_with model: [@order, @order_item], autocomplete: :off, local: true do |form| %>
+
+  <div class="form-group">
+    <label><%= 'Pacjent' %></label>
+    <%= form.text_field :patient_id, data: { autocomplete: autocomplete_patient_name_patients_path }, 'data-auto-focus' => true, :class => 'form-control select', :option => 'Small select', id: 'patient_id' %>
+  </div>
+
+  <div class="form-group">
+    <label><%= 'Badanie' %></label>
+    <%= form.text_field :exam_id, data: { autocomplete: autocomplete_exam_name_exams_path }, 'data-auto-focus' => true, :class => 'form-control select', :option => 'Small select' %>
+  </div>
+
+  <div class="mt-4">
+    <div class="d-flex justify-content-between">
+      <%= form.submit 'Dodaj', class: 'btn btn-sm btn-success', id: 'save-item' %>
+      <%= link_to 'Powrót', order_path(@order), class: 'btn btn-sm btn-secondary' %>
+    </div>
+  </div>
+
+<% end %>

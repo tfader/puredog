@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :patient_attrs
 
   resources :patients do
+    get :autocomplete_patient_name, on: :collection
     resources :attrs do
       resources :patient_attr_values
     end
@@ -29,6 +30,7 @@ Rails.application.routes.draw do
   end
 
   resources :exams do
+    get :autocomplete_exam_name, on: :collection
     resources :exam_varieties
     resources :exam_units
   end
@@ -45,10 +47,26 @@ Rails.application.routes.draw do
     get :autocomplete_patron_name, on: :collection
   end
 
-  resources :clients
+  resources :clients do
+    get :autocomplete_client_name, on: :collection
+  end
 
   resources :cities do
     get :autocomplete_city_name, on: :collection
+  end
+
+  resources :orders do
+    resources :order_items
+  end
+
+  resources :order_statuses do
+    get :autocomplete_order_status_name, on: :collection
+  end
+
+  resources :order_flows
+
+  resources :session_order_items do
+    patch :add_item
   end
 
 end

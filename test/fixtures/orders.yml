@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  spot: one
+  client: one
+  ordered: 2020-07-08
+  placed: 2020-07-08
+  order_number: MyString
+
+two:
+  spot: two
+  client: two
+  ordered: 2020-07-08
+  placed: 2020-07-08
+  order_number: MyString

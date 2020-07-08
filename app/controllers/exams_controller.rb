@@ -4,6 +4,15 @@ class ExamsController < ApplicationController
     redirect_to exams_path
   end
 
+  def autocomplete_exam_name
+    name = params[:term].upcase
+    exams = Exam.where(
+        'upper(exams.name) LIKE ? or exists (select null from exam_groups where exams.exam_group_id = exam_groups.id and upper(exam_groups.name) like ?)',
+        "%#{name}%", "%#{name}%"
+    ).order(:id).all
+    render :json => exams.map { |exam| {:id => exam.id, :label => exam.name_with_group_name, :value => exam.name_with_group_name} }
+  end
+
   def index
     @where_you_are = 'Badania'
     @exams = Exam.all

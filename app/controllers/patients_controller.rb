@@ -4,6 +4,15 @@ class PatientsController < ApplicationController
     redirect_to patients_path
   end
 
+  def autocomplete_patient_name
+    name = params[:term].upcase
+    patients = Patient.where(
+        'upper(patients.name) LIKE ? or exists (select null from patrons where patients.patron_id = patrons.id and (patrons.public_id like ? or upper(patrons.last_name) like ?))',
+        "%#{name}%", "%#{name}%", "%#{name}%"
+    ).order(:id).all
+    render :json => patients.map { |patient| {:id => patient.id, :label => patient.name_with_patron_name, :value => patient.name_with_patron_name} }
+  end
+
   def index
     @where_you_are = 'Pacjenci'
     @patients = Patient.all

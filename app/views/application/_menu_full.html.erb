@@ -44,6 +44,20 @@
             <%= link_to('Klienci', clients_path, class: 'nav-link') %>
             <div class="dropdown-divider"></div>
             <%= link_to('Miejscowości', cities_path, class: 'nav-link') %>
+            <div class="dropdown-divider"></div>
+            <%= link_to('Statusy zleceń', order_statuses_path, class: 'nav-link') %>
+            <div class="dropdown-divider"></div>
+            <%= link_to('Etapy realizacji zleceń', order_flows_path, class: 'nav-link') %>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= 'Zlecenia' %>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
+            <%= link_to('Nowe zlecenie', new_order_path, class: 'nav-link') %>
+            <div class="dropdown-divider"></div>
+            <%= link_to('Zlecenia', orders_path, class: 'nav-link') %>
           </div>
         </li>
         <li class="nav-item">

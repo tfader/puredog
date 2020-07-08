@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_08_064014) do
+ActiveRecord::Schema.define(version: 2020_07_08_075859) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -127,6 +127,46 @@ ActiveRecord::Schema.define(version: 2020_07_08_064014) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "order_flows", force: :cascade do |t|
+    t.string "name"
+    t.integer "flow_step"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "order_items", force: :cascade do |t|
+    t.bigint "order_id"
+    t.bigint "patient_id"
+    t.bigint "exam_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exam_id"], name: "index_order_items_on_exam_id"
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+    t.index ["patient_id"], name: "index_order_items_on_patient_id"
+  end
+
+  create_table "order_statuses", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "order_flow_id"
+    t.index ["order_flow_id"], name: "index_order_statuses_on_order_flow_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.bigint "spot_id"
+    t.bigint "client_id"
+    t.date "ordered"
+    t.date "placed"
+    t.string "order_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "order_status_id"
+    t.index ["client_id"], name: "index_orders_on_client_id"
+    t.index ["order_status_id"], name: "index_orders_on_order_status_id"
+    t.index ["spot_id"], name: "index_orders_on_spot_id"
+  end
+
   create_table "parameters", force: :cascade do |t|
     t.string "param_name"
     t.string "param_value"
@@ -230,6 +270,13 @@ ActiveRecord::Schema.define(version: 2020_07_08_064014) do
   add_foreign_key "exam_varieties", "varieties"
   add_foreign_key "exams", "exam_groups"
   add_foreign_key "exams", "materials"
+  add_foreign_key "order_items", "exams"
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "order_items", "patients"
+  add_foreign_key "order_statuses", "order_flows"
+  add_foreign_key "orders", "clients"
+  add_foreign_key "orders", "order_statuses"
+  add_foreign_key "orders", "spots"
   add_foreign_key "patient_attr_values", "attrs"
   add_foreign_key "patient_attr_values", "patients"
   add_foreign_key "patient_attrs", "attrs"
