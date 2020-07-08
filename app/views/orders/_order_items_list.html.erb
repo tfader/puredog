@@ -1,28 +1,51 @@
-<table class="table">
-  <thead>
-  <tr>
-    <th scope="col">#</th>
-    <th scope="col">Pacjent</th>
-    <th scope="col">Badanie</th>
-  </tr>
-  </thead>
-  <tbody>
-    <% v_i = 1 %>
-    <% @order.order_items.each do |order_item| %>
-      <tr>
-        <th scope="row"><%= v_i %></th>
-        <td><%= order_item.patient.name_with_patron_name %></td>
-        <% if order_item.is_duplicate.present? %>
-          <td class="red"><%= order_item.exam.name_with_group_name %></td>
-        <% else %>
-          <td><%= order_item.exam.name_with_group_name %></td>
-        <% end %>
-        <td><%= link_to(' - ', order_order_item_path(@order, order_item), method: :delete, class: 'btn btn-sm btn-warning') %></td>
-      </tr>
-      <% v_i += 1 %>
-    <% end %>
-  </tbody>
-</table>
+<div class="table-responsive">
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col"><p class="p-small"><%= '#' %></p></th>
+      <th scope="col"><p class="p-small"><%= 'Pacjent' %></p></th>
+      <th scope="col"><p class="p-small"><%= 'Badanie' %></p></th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+      <% v_i = 1 %>
+      <% @order.order_items.each do |order_item| %>
+        <tr>
+          <th scope="row">
+            <p class="p-small"><%= v_i %></p>
+          </th>
+          <td>
+            <p class="p-small"><%= order_item.patient.name %></p>
+          </td>
+          <% if order_item.is_duplicate.present? %>
+            <td class="red">
+              <p class="p-small"><%= order_item.exam.name_with_group_name %></p>
+            </td>
+          <% else %>
+            <td>
+              <p class="p-small"><%= order_item.exam.name %></p>
+            </td>
+          <% end %>
+          <td>
+            <%= link_to ' B+ ', new_order_order_item_path(@order, :patient_id => order_item.patient_id), remote: true, class: 'btn btn-sm btn-primary', id: 'add-item' %>
+            <%= link_to(' - ', order_order_item_path(@order, order_item), method: :delete, class: 'btn btn-sm btn-warning') %>
+          </td>
+        </tr>
+        <tr class="divide">
+          <td colspan="3">
+            <p class="p-small"><%= order_item.patient.name_with_patron_name %></p>
+          </td>
+          <td colspan="2">
+            <p class="p-small"><%= order_item.station_name %></p>
+          </td>
+        </tr>
+        <% v_i += 1 %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 <div class="d-flex justify-content-between">
   <%= link_to ' Wróc ', orders_path, class: 'btn btn-sm btn-secondary' %>
   <%= link_to ' + ', new_order_order_item_path(@order), remote: true, class: 'btn btn-sm btn-primary', id: 'add-item' %>

@@ -2,6 +2,7 @@ class OrderItemsController < ApplicationController
   def new
     @order = Order.find(params[:order_id])
     @order_item = OrderItem.new(:order => @order)
+    @order_item.patient_id = Patient.find(params[:patient_id]).name_with_patron_name
   end
 
   def create

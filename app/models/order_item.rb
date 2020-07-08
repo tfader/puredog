@@ -16,4 +16,15 @@ class OrderItem < ApplicationRecord
     end
   end
 
+  def station_name
+    station_exam = StationExam
+        .where('exam_id = ?', exam_id)
+        .where('exists (select null from stations where stations.id = station_exams.station_id and stations.spot_id = ?)', order.spot_id).first
+    if station_exam.present?
+      station_exam.station.name
+    else
+      'Nie przypisane'
+    end
+  end
+
 end

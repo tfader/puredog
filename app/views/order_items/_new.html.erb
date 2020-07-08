@@ -12,7 +12,7 @@
 
   <div class="form-group">
     <label><%= 'Badanie' %></label>
-    <%= form.text_field :exam_id, data: { autocomplete: autocomplete_exam_name_exams_path }, 'data-auto-focus' => true, :class => 'form-control select', :option => 'Small select' %>
+    <%= form.text_field :exam_id, data: { autocomplete: autocomplete_exam_name_exams_path }, 'data-auto-focus' => true, :class => 'form-control select', :option => 'Small select', id: 'exam_id' %>
   </div>
 
   <div class="mt-4">
