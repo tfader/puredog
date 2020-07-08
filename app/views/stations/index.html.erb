@@ -15,8 +15,9 @@
           <div class="d-flex justify-content-between">
             <h5 class="card-title"><%= station.name %></h5>
           </div>
-          <%= link_to 'Usuń', edit_spot_station_path(@spot, station), class: 'card-link' %>
+          <%= link_to 'Edycja', edit_spot_station_path(@spot, station), class: 'card-link' %>
           <%= link_to 'Usuń', spot_station_path(@spot, station), method: :delete, class: 'card-link red' %>
+          <%= link_to 'Badania', spot_station_station_exams_path(@spot, station), class: 'card-link' %>
         </div>
       </div>
     </div>

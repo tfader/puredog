@@ -1,0 +1,23 @@
+<div class="row mt-3">
+  <div class="col">
+    <div class="d-flex justify-content-between">
+      <%= link_to 'Powrót', spot_stations_path(@spot), class: 'btn btn-sm btn-secondary' %>
+      <%= @where_you_are %>
+      <%= link_to 'Nowe', new_spot_station_station_exam_path(@spot, @station), class: 'btn btn-sm btn-primary' %>
+    </div>
+  </div>
+</div>
+<div class="row mt-3">
+  <% @station_exams.each do |station_exam| %>
+    <div class="col-md-4 col-sm-12">
+      <div class="card m-1 mb-3">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <h5 class="card-title"><%= station_exam.exam.name_with_group_name %></h5>
+          </div>
+          <%= link_to 'Usuń', spot_station_station_exam_path(@spot, @station, station_exam), method: :delete, class: 'card-link red' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

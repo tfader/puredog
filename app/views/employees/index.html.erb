@@ -30,7 +30,7 @@
             </p>
           <% else %>
             <p class="card-text">
-              <%= 'Placówka: ' %><%= employee.current_spot.spot.name if employee.current_spot.present? %>
+              <%= 'Placówka: ' %><%= employee.current_spot.name if employee.current_spot.present? %>
             </p>
           <% end %>
           <div class="d-flex justify-content-start">
