@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_employee
 
+  @where_you_are = 'Strona główna'
+
   def current_employee
     if current_user.present?
       emp_user = EmployeeUser.find_by(user_id: current_user.id)

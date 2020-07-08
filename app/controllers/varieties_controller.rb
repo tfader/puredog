@@ -5,6 +5,7 @@ class VarietiesController < ApplicationController
   end
 
   def index
+    @where_you_are = 'Gatunki'
     @varieties = Variety.all.order(:name)
   end
 

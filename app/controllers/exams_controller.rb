@@ -5,6 +5,7 @@ class ExamsController < ApplicationController
   end
 
   def index
+    @where_you_are = 'Badania'
     @exams = Exam.all
   end
 

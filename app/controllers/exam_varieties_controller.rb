@@ -6,6 +6,7 @@ class ExamVarietiesController < ApplicationController
 
   def index
     @exam = Exam.find(params[:exam_id])
+    @where_you_are = 'Badania dla '+@exam.name
     @exam_varieties = @exam.exam_varieties.all
   end
 

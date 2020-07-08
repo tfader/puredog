@@ -1,5 +1,7 @@
 class UnitRatesController < ApplicationController
+
   def index
+    @where_you_are = 'Przeliczniki'
     @unit = Unit.find(params[:unit_id])
     @unit_rates = @unit.rates_from.all
   end

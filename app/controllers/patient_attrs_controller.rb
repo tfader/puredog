@@ -5,6 +5,7 @@ class PatientAttrsController < ApplicationController
   end
 
   def index
+    @where_you_are = 'Atrybuty pacjentów'
     @patient_attrs = PatientAttr.all
   end
 

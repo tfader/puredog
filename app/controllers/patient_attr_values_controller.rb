@@ -1,4 +1,5 @@
 class PatientAttrValuesController < ApplicationController
+
   def new
     @attr = Attr.find(params[:attr_id])
     @patient = Patient.find(params[:patient_id])

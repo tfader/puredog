@@ -4,15 +4,41 @@ class Exam < ApplicationRecord
   has_many :exam_varieties
   has_many :exam_units
 
-  def exam_varieties_names
-    varieties_name = nil
+  def variety_names
+    variety_names = nil
     exam_varieties.each do |exam_variety|
-      if varieties_name.blank?
-        varieties_name = exam_variety.variety.name
+      if variety_names.blank?
+        variety_names = exam_variety.variety.name
       else
-        varieties_name = [varieties_name, exam_variety.variety.name].compact.join(', ')
+        variety_names = [variety_names, exam_variety.variety.name].compact.join(', ')
       end
     end
-    varieties_name
+    variety_names
   end
+
+  def unit_names
+    units_names = nil
+    exam_units.each do |exam_unit|
+      if units_names.blank?
+        units_names = exam_unit.unit.name
+      else
+        units_names = [unit_names, exam_unit.unit.name].compact.join(', ')
+      end
+    end
+    units_names
+  end
+
+  def unit_codes
+    units_codes = nil
+    exam_units.each do |exam_unit|
+      if units_codes.blank?
+        units_codes = exam_unit.unit.code
+      else
+        units_codes = [units_codes, exam_unit.unit.code].compact.join(', ')
+      end
+    end
+    units_codes
+  end
+
+
 end

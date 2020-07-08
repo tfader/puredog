@@ -5,6 +5,7 @@ class EmployeesController < ApplicationController
   end
 
   def index
+    @where_you_are = 'Pracownicy'
     @employees = Employee.all
   end
 

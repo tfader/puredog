@@ -5,6 +5,7 @@ class ExamAttrsController < ApplicationController
   end
 
   def index
+    @where_you_are = 'Atrybuty badań'
     @exam_attrs = ExamAttr.all
   end
 

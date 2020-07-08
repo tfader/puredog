@@ -5,6 +5,7 @@ class SpotsController < ApplicationController
   end
 
   def index
+    @where_you_are = 'Placówki'
     @spots = Spot.all
   end
 

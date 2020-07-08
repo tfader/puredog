@@ -5,6 +5,7 @@ class AttrClassesController < ApplicationController
   end
 
   def index
+    @where_you_are = 'Grupy atrybutów'
     @attr_classes = AttrClass.all.order(:name)
   end
 

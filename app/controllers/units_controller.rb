@@ -5,6 +5,7 @@ class UnitsController < ApplicationController
   end
 
   def index
+    @where_you_are = 'Jednostki'
     @units = Unit.all.order(:name)
   end
 

@@ -5,6 +5,7 @@ class MaterialsController < ApplicationController
   end
 
   def index
+    @where_you_are = 'Materiały'
     @materials = Material.all
   end
 

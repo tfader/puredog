@@ -1,0 +1,2 @@
+class PatronessController < ApplicationController
+end

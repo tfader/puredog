@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_07_201846) do
+ActiveRecord::Schema.define(version: 2020_07_07_213011) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -149,6 +149,14 @@ ActiveRecord::Schema.define(version: 2020_07_07_201846) do
     t.datetime "updated_at", null: false
     t.bigint "variety_id"
     t.index ["variety_id"], name: "index_patients_on_variety_id"
+  end
+
+  create_table "patrons", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "public_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "spots", force: :cascade do |t|

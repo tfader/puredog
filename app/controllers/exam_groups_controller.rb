@@ -6,6 +6,7 @@ class ExamGroupsController < ApplicationController
   end
 
   def index
+    @where_you_are = 'Grupy badań'
     @exam_groups = ExamGroup.all.order(:name)
   end
 

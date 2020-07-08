@@ -7,6 +7,7 @@ class AttrsController < ApplicationController
 
   def index
     @attr_class = AttrClass.find(params[:attr_class_id])
+    @where_you_are = 'Atrybuty w klasie '+@attr_class.name
     @attributes = @attr_class.attrs.all
   end
 

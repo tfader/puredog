@@ -2,6 +2,7 @@
   <div class="col">
     <div class="d-flex justify-content-between">
       <%= link_to 'Powrót', root_path, class: 'btn btn-sm btn-secondary' %>
+      <%= @where_you_are %>
       <%= link_to 'Nowy', new_exam_path, class: 'btn btn-sm btn-primary' %>
     </div>
   </div>
@@ -14,8 +15,9 @@
           <h5 class="card-title mb-3"><%= exam.name %></h5>
           <h6 class="card-subtitle mb-3 text-muted"><%= 'Grupa: ' %><%= exam.exam_group.name %></h6>
           <h6 class="card-subtitle mb-3 text-muted"><%= 'Materiał: ' %><%= exam.material.name %></h6>
-          <h6 class="card-subtitle mb-2 text-muted"><%= 'Gatunki: ' %><%= exam.exam_varieties_names %></h6>
-          <p class="card-text description"><%= exam.description %></p>
+          <h6 class="card-subtitle mb-3 text-muted"><%= 'Gatunki: ' %><%= exam.variety_names %></h6>
+          <h6 class="card-subtitle mb-2 text-muted"><%= 'Jednostki: ' %><%= exam.unit_codes %></h6>
+          <p class="card-text description p-small"><%= exam.description.truncate(300) %></p>
           <%= link_to 'Edycja', edit_exam_path(exam), class: 'card-link' %>
           <%= link_to 'Gatunki', exam_exam_varieties_path(exam), class: 'card-link' %>
           <%= link_to 'Jednostki', exam_exam_units_path(exam), class: 'card-link' %>

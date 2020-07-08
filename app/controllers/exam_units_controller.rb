@@ -7,6 +7,7 @@ class ExamUnitsController < ApplicationController
 
   def index
     @exam = Exam.find(params[:exam_id])
+    @where_you_are = 'Jednostki dla '+@exam.name
     @exam_units = @exam.exam_units.all
   end
 
