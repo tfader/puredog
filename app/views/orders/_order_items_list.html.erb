@@ -75,10 +75,12 @@
         <td colspan="3">
           <% unless @order_status_id == 'done' %>
             <%= link_to ' B ', new_order_order_item_path(@order, :patient_id => order_item.patient_id), remote: true, class: 'btn btn-sm btn-primary', id: 'add-item' %>
-            <%= link_to(' U ', order_order_item_path(@order, order_item), method: :delete, class: 'btn btn-sm btn-warning') %>
           <% end %>
           <% if @order_status_id == 'to_do' or @order_status_id == 'in_progress' %>
             <%= link_to ' W ', new_order_item_order_item_result_path(order_item), remote: true, class: 'btn btn-sm btn-success', id: 'add-item' %>
+          <% end %>
+          <% unless @order_status_id == 'done' %>
+            <%= link_to(' - ', order_order_item_path(@order, order_item), method: :delete, class: 'btn btn-sm btn-warning') %>
           <% end %>
         </td>
       </tr>

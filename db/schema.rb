@@ -97,8 +97,8 @@ ActiveRecord::Schema.define(version: 2020_07_09_124223) do
     t.integer "is_default", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "norm_min"
-    t.integer "norm_max"
+    t.decimal "norm_min"
+    t.decimal "norm_max"
     t.index ["exam_id"], name: "index_exam_units_on_exam_id"
     t.index ["unit_id"], name: "index_exam_units_on_unit_id"
   end
@@ -138,7 +138,7 @@ ActiveRecord::Schema.define(version: 2020_07_09_124223) do
 
   create_table "order_item_results", force: :cascade do |t|
     t.bigint "order_item_id"
-    t.integer "result"
+    t.decimal "result"
     t.datetime "result_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
