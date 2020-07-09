@@ -39,7 +39,6 @@ class PatientsController < ApplicationController
 
   def edit
     @patient = Patient.find(params[:id])
-    @patient.patron_id = @patient.patron.id_with_last_name if @patient.patron.present?
   end
 
   def update
