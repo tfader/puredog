@@ -31,12 +31,21 @@
             </td>
           <% end %>
           <td>
+            <% last_result = order_item.last_result %>
             <p class="p-small">
               <% order_item.order_item_results.each do |order_item_result| %>
-                <%= order_item_result.result %>
+                <% if last_result.present? %>
+                  <% if last_result.id != order_item_result.id %>
+                    <%= order_item_result.result %><%= ',' %>
+                  <% end %>
+                <% else %>
+                  <%= order_item_result.result %>
+                <% end %>
               <% end %>
-              <% if order_item.last_result.present? %>
+              <% if last_result.present? %>
                 <span class="bold">
+                  <%= last_result.result %>
+                </span>
                   <% result_mark = order_item.result_mark %>
                   <% case result_mark %>
                   <% when 1 %>
@@ -46,7 +55,6 @@
                   <% else %>
                     <%= inline_svg_tag('check.svg', class: 'svg-sm fill-green ml-1') %>
                   <% end %>
-                </span>
               <% end %>
             </p>
           </td>
