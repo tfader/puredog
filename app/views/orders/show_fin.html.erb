@@ -2,17 +2,13 @@
   <div class="col-md-10">
     <div class="card shadow" >
       <div class="card-body">
-        <div class="d-flex justify-content-between">
-          <h5 class="card-title mb-4"><%= 'Zlecenie numer - '+@order.id.to_s %></h5>
-          <% if @order.is_cito == 1 %>
-            <h6 class="card-subtitle mb-4"><span class="badge badge-danger"><%= 'Cito' %></span></h6>
-          <% end %>
-        </div>
+        <h5 class="card-title mb-4"><%= 'Zlecenie numer - '+@order.id.to_s %></h5>
+        <h5 class="card-title mb-4"><%= 'Wartość całkowita - ' %><%= number_to_currency(@order.total_value)  %></h5>
         <h6 class="card-subtitle mb-4"><span class="badge badge-success"><%= t @order.order_status.name %></span></h6>
         <h6 class="card-subtitle mb-4"><%= @order.client.name_with_city %></h6>
         <h6 class="card-subtitle mb-3 text-muted"><%= 'Zlecone: ' %><%= @order.placed %></h6>
         <h6 class="card-subtitle mb-3 text-muted"><%= 'Data zlecenia: ' %><%= @order.ordered %></h6>
-        <%= render partial: 'order_items_list' %>
+        <%= render partial: 'order_items_list_fin' %>
         <div id="add_order_item" class="mt-4">
         </div>
         <div id="order_item_result" class="mt-4">

@@ -20,8 +20,15 @@
           <h6 class="card-subtitle mb-4"><span class="badge badge-success"><%= t order.order_status.name %></span></h6>
           <h6 class="card-subtitle mb-3 text-muted"><%= 'Zlecone: ' %><%= order.ordered %></h6>
           <h6 class="card-subtitle mb-3 text-muted"><%= 'Zarejestrowane: ' %><%= order.placed %></h6>
-          <%= link_to 'Edycja', order_path(order), class: 'card-link' %>
-          <%= link_to 'Usuń', order_path(order), method: :delete, class: 'card-link red' %>
+          <div class="d-flex mb-2">
+            <%= link_to 'Edycja', order_path(order), class: 'card-link' %>
+            <%= link_to 'Rozliczenie', order_show_fin_path(order), class: 'card-link' %>
+          </div>
+          <div class="d-flex">
+            <%= link_to 'Usuń', order_path(order), method: :delete, class: 'card-link red' %>
+            <%= link_to 'Archiwzacja', order_to_archive_path(order), method: :patch, class: 'card-link black' %>
+          </div>
+
         </div>
       </div>
     </div>

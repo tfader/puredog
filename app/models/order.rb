@@ -42,6 +42,14 @@ class Order < ApplicationRecord
     end
   end
 
+  def total_value
+    v_total_value = 0
+    order_items.each do |order_item|
+      v_total_value += order_item.item_price
+    end
+    v_total_value
+  end
+
   private
   def default_values
     self.ordered ||= DateTime.now.to_date

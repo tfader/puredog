@@ -34,3 +34,11 @@ pl:
   to_do: "Do wykonania"
   new: "Nowe"
   done: "Zrealizowane"
+  number:
+    currency:
+      format:
+        unit: 'zł'
+        delimiter: ','
+        separator: '.'
+        precision: 2
+        format: '%n%u'

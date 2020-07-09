@@ -16,7 +16,8 @@
   </div>
 
   <div class="form-group">
-    <label><%= 'Status - ' %><span class="bold"><%= @order.order_status.name %></span></label>
+    <%= order_form.check_box :is_cito, class: 'input', id: 'is_cito', type: 'checkbox' %>
+    <label><%= 'Cito' %></label>
   </div>
 
   <div class="mt-4">

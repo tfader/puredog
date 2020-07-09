@@ -5,6 +5,7 @@ class OrderItemResult < ApplicationRecord
   belongs_to :unit
 
   after_initialize :default_values
+
   private
   def default_values
     self.result_time ||= DateTime.now

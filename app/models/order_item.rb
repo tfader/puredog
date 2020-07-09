@@ -75,4 +75,34 @@ class OrderItem < ApplicationRecord
     v_ret
   end
 
+  def item_price
+    v_price = 0
+    if order.is_cito == 1 or is_cito == 1
+      price_list = order.client.price_lists.find_by(is_cito: 1)
+      if price_list.present?
+        price_list_item = price_list.price_list_items.find_by(exam_id: exam.id)
+        if price_list_item.present?
+          v_price = price_list_item.price
+        end
+      else
+        price_list = order.client.price_lists.find_by(is_cito: 0)
+        if price_list.present?
+          price_list_item = price_list.price_list_items.find_by(exam_id: exam.id, is_cito: 1)
+          if price_list_item.present?
+            v_price = price_list_item.price
+          end
+        end
+      end
+    else
+      price_list = order.client.price_lists.find_by(is_cito: 0)
+      if price_list.present?
+        price_list_item = price_list.price_list_items.find_by(exam_id: exam.id, is_cito: 0)
+        if price_list_item.present?
+          v_price = price_list_item.price
+        end
+      end
+    end
+    v_price
+  end
+
 end

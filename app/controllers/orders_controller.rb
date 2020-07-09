@@ -13,7 +13,7 @@ class OrdersController < ApplicationController
 
   def index
     @where_you_are = 'Zlecenia'
-    @orders = Order.all.order(:id)
+    @orders = Order.where('is_archive = 0').all.order(:id)
   end
 
   def create
@@ -38,6 +38,10 @@ class OrdersController < ApplicationController
 
   def destroy
     order = Order.find(params[:id])
+    order.order_items.each do |order_item|
+      order_item.order_item_results.delete_all
+      order_item.delete
+    end
     if order.delete
       redirect_to orders_path
     end
@@ -55,9 +59,24 @@ class OrdersController < ApplicationController
     redirect_to order_path(order)
   end
 
+  def to_archive
+    order = Order.find(params[:order_id])
+    if order.update(:is_archive => 1)
+      redirect_to orders_path
+    else
+      flash[:error] = 'Bład archiwizacji'
+      redirect_to orders_path(order)
+    end
+  end
+
+  def show_fin
+    @order = Order.find(params[:order_id])
+    @order_status_id = @order.order_status.name
+  end
+
   private
   def order_params
-    params.require(:order).permit(:placed, :ordered, )
+    params.require(:order).permit(:placed, :ordered, :is_cito )
   end
 
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_09_124223) do
+ActiveRecord::Schema.define(version: 2020_07_09_175914) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -153,6 +153,7 @@ ActiveRecord::Schema.define(version: 2020_07_09_124223) do
     t.bigint "exam_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "is_cito", default: 0
     t.index ["exam_id"], name: "index_order_items_on_exam_id"
     t.index ["order_id"], name: "index_order_items_on_order_id"
     t.index ["patient_id"], name: "index_order_items_on_patient_id"
@@ -175,6 +176,8 @@ ActiveRecord::Schema.define(version: 2020_07_09_124223) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "order_status_id"
+    t.integer "is_cito", default: 0
+    t.integer "is_archive", default: 0
     t.index ["client_id"], name: "index_orders_on_client_id"
     t.index ["order_status_id"], name: "index_orders_on_order_status_id"
     t.index ["spot_id"], name: "index_orders_on_spot_id"
@@ -222,6 +225,26 @@ ActiveRecord::Schema.define(version: 2020_07_09_124223) do
     t.string "public_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "price_list_items", force: :cascade do |t|
+    t.bigint "price_list_id"
+    t.bigint "exam_id"
+    t.integer "is_cito", default: 0
+    t.decimal "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exam_id"], name: "index_price_list_items_on_exam_id"
+    t.index ["price_list_id"], name: "index_price_list_items_on_price_list_id"
+  end
+
+  create_table "price_lists", force: :cascade do |t|
+    t.bigint "client_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name"
+    t.integer "is_cito", default: 0
+    t.index ["client_id"], name: "index_price_lists_on_client_id"
   end
 
   create_table "spots", force: :cascade do |t|
@@ -314,6 +337,8 @@ ActiveRecord::Schema.define(version: 2020_07_09_124223) do
   add_foreign_key "patient_attrs", "attrs"
   add_foreign_key "patients", "patrons"
   add_foreign_key "patients", "varieties"
+  add_foreign_key "price_list_items", "price_lists"
+  add_foreign_key "price_lists", "clients"
   add_foreign_key "spots", "cities"
   add_foreign_key "station_exams", "exams"
   add_foreign_key "station_exams", "stations"

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  price_list: one
+  exam: 
+  cito: 1
+  price: 9.99
+
+two:
+  price_list: two
+  exam: 
+  cito: 1
+  price: 9.99

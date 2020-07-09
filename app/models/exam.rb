@@ -5,6 +5,7 @@ class Exam < ApplicationRecord
   belongs_to :material
   has_many :exam_varieties
   has_many :exam_units
+  has_many :price_list_items
 
   class << self
     def search_by_name(p_search)

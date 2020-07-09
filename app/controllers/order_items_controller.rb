@@ -1,7 +1,7 @@
 class OrderItemsController < ApplicationController
   def new
     @order = Order.find(params[:order_id])
-    @order_item = OrderItem.new(:order => @order)
+    @order_item = OrderItem.new(:order => @order, :is_cito => @order.is_cito)
     if params[:patient_id].present?
       @order_item.patient_id = Patient.find(params[:patient_id]).name_with_patron_name
     end
@@ -13,6 +13,8 @@ class OrderItemsController < ApplicationController
     @order_item.order = @order
     @order_item.patient = Patient.search_by_patron_and_name(params[:order_item][:patient_id])
     @order_item.exam = Exam.search_by_name(params[:order_item][:exam_id])
+    @order_item.is_cito = params[:order_item][:is_cito]
+
     if @order_item.valid?
       @order_item.save
       redirect_to order_path(@order)

@@ -1,6 +1,7 @@
 class Client < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   belongs_to :city
+  has_many :price_lists
 
   class << self
     def search_by_id_or_second(p_search)

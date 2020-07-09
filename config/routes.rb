@@ -63,6 +63,8 @@ Rails.application.routes.draw do
   resources :orders do
     resources :order_items
     patch :change_status
+    patch :to_archive
+    get :show_fin
   end
 
   resources :order_items do
@@ -75,8 +77,10 @@ Rails.application.routes.draw do
 
   resources :order_flows
 
-  resources :session_order_items do
-    patch :add_item
+  resources :price_lists do
+    patch :add_all
+    resources :price_list_items do
+    end
   end
 
 end

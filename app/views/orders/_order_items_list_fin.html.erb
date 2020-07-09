@@ -6,7 +6,7 @@
       <th scope="col"><p class="p-small"><%= '#' %></p></th>
       <th scope="col"><p class="p-small"><%= 'Pacjent' %></p></th>
       <th scope="col"><p class="p-small"><%= 'Badanie' %></p></th>
-      <th scope="col"><p class="p-small"><%= 'Wynik' %></p></th>
+      <th scope="col"><p class="p-small"><%= 'Cena' %></p></th>
       <th scope="col"></th>
       <th scope="col"></th>
     </tr>
@@ -16,59 +16,22 @@
       <% @order.order_items.each do |order_item| %>
         <tr>
           <th scope="row">
-            <p class="p-small">
-              <%= v_i %>
-            </p>
+            <p class="p-small"><%= v_i %></p>
           </th>
           <td>
             <p class="p-small"><%= order_item.patient.name %></p>
           </td>
           <% if order_item.is_duplicate.present? %>
             <td class="red">
-              <p class="p-small">
-                <%= order_item.exam.name %>
-                <% if order_item.is_cito == 1 %>
-                  <span class="badge badge-danger"><%= 'C' %></span>
-                <% end %>
-              </p>
+              <p class="p-small"><%= order_item.exam.name %></p>
             </td>
           <% else %>
             <td>
-              <p class="p-small">
-                <%= order_item.exam.name %>
-                <% if order_item.is_cito == 1 %>
-                  <span class="badge badge-danger"><%= 'C' %></span>
-                <% end %>
-              </p>
+              <p class="p-small"><%= order_item.exam.name %></p>
             </td>
           <% end %>
           <td>
-            <% last_result = order_item.last_result %>
-            <p class="p-small">
-              <% order_item.order_item_results.each do |order_item_result| %>
-                <% if last_result.present? %>
-                  <% if last_result.id != order_item_result.id %>
-                    <%= order_item_result.result %><%= ',' %>
-                  <% end %>
-                <% else %>
-                  <%= order_item_result.result %>
-                <% end %>
-              <% end %>
-              <% if last_result.present? %>
-                <span class="bold">
-                  <%= last_result.result %>
-                </span>
-                  <% result_mark = order_item.result_mark %>
-                  <% case result_mark %>
-                  <% when 1 %>
-                    <%= inline_svg_tag('arrow_upward.svg', class: 'svg-sm fill-red ml-1') %>
-                  <% when -1 %>
-                    <%= inline_svg_tag('arrow_downward.svg', class: 'svg-sm fill-red ml-1') %>
-                  <% else %>
-                    <%= inline_svg_tag('check.svg', class: 'svg-sm fill-green ml-1') %>
-                  <% end %>
-              <% end %>
-            </p>
+            <%= number_to_currency(order_item.item_price) %>
           </td>
         </tr>
         <tr class="divide">

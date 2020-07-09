@@ -1,0 +1,31 @@
+<div class="row mt-3">
+  <div class="col">
+    <div class="d-flex justify-content-between">
+      <%= link_to 'Powrót', price_lists_path, class: 'btn btn-sm btn-secondary' %>
+      <%= @where_you_are %>
+      <%= link_to 'Nowy', new_price_list_path, class: 'btn btn-sm btn-primary' %>
+    </div>
+  </div>
+</div>
+<div class="row mt-3">
+  <% @price_lists.each do |price_list| %>
+    <div class="col-md-4 col-sm-12">
+      <div class="card m-1 mb-3">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <h5 class="card-title mb-3"><%= price_list.name %></h5>
+            <% if price_list.is_cito == 1 %>
+              <h6 class="card-subtitle mb-4"><span class="badge badge-danger"><%= 'Cito' %></span></h6>
+            <% end %>
+          </div>
+          <h6 class="card-subtitle mb-3 text-muted"><%= 'Klient: ' %><%= price_list.client.name %></h6>
+          <h6 class="card-subtitle mb-3 text-muted"><%= 'Ilość pozycko w cenniku: ' %><%= price_list.price_list_items.count %></h6>
+          <%= link_to 'Edycja', edit_price_list_path(price_list), class: 'card-link' %>
+          <%= link_to 'Pozycje', price_list_price_list_items_path(price_list), class: 'card-link' %>
+          <%= link_to 'Dodaj', new_price_list_price_list_item_path(price_list), class: 'card-link' %>
+          <%= link_to 'Usuń', price_list_path(price_list), method: :delete, class: 'card-link red' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
