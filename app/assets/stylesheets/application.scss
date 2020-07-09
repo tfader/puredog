@@ -64,6 +64,26 @@ body {
   }
 }
 
+.gray {
+  color: gray !important;
+  &:hover {
+    color: gray;
+  }
+  &:focus {
+    color: gray;
+  }
+}
+
+.pink {
+  color: deeppink !important;
+  &:hover {
+    color: deeppink;
+  }
+  &:focus {
+    color: deeppink;
+  }
+}
+
 .svg {
   width: 24px;
   height: 24px;
