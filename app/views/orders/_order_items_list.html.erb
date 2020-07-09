@@ -6,6 +6,8 @@
       <th scope="col"><p class="p-small"><%= '#' %></p></th>
       <th scope="col"><p class="p-small"><%= 'Pacjent' %></p></th>
       <th scope="col"><p class="p-small"><%= 'Badanie' %></p></th>
+      <th scope="col"><p class="p-small"><%= 'Wynik' %></p></th>
+      <th scope="col"></th>
       <th scope="col"></th>
     </tr>
     </thead>
@@ -21,7 +23,7 @@
           </td>
           <% if order_item.is_duplicate.present? %>
             <td class="red">
-              <p class="p-small"><%= order_item.exam.name_with_group_name %></p>
+              <p class="p-small"><%= order_item.exam.name %></p>
             </td>
           <% else %>
             <td>
@@ -29,8 +31,24 @@
             </td>
           <% end %>
           <td>
-            <%= link_to ' B+ ', new_order_order_item_path(@order, :patient_id => order_item.patient_id), remote: true, class: 'btn btn-sm btn-primary', id: 'add-item' %>
-            <%= link_to(' - ', order_order_item_path(@order, order_item), method: :delete, class: 'btn btn-sm btn-warning') %>
+            <p class="p-small">
+              <% order_item.order_item_results.each do |order_item_result| %>
+                <%= order_item_result.result %>
+              <% end %>
+              <% if order_item.last_result.present? %>
+                <span class="bold">
+                  <% result_mark = order_item.result_mark %>
+                  <% case result_mark %>
+                  <% when 1 %>
+                    <%= inline_svg_tag('arrow_upward.svg', class: 'svg-sm fill-red ml-1') %>
+                  <% when -1 %>
+                    <%= inline_svg_tag('arrow_downward.svg', class: 'svg-sm fill-red ml-1') %>
+                  <% else %>
+                    <%= inline_svg_tag('check.svg', class: 'svg-sm fill-green ml-1') %>
+                  <% end %>
+                </span>
+              <% end %>
+            </p>
           </td>
         </tr>
         <tr class="divide">
@@ -38,9 +56,24 @@
             <p class="p-small"><%= order_item.patient.name_with_patron_name %></p>
           </td>
           <td colspan="2">
-            <p class="p-small"><%= order_item.station_name %></p>
+            <% if order_item.station_name.present? %>
+              <p class="p-small"><%= order_item.station_name %></p>
+            <% else %>
+              <p class="p-small red"><%= 'Brak stanowiska' %></p>
+            <% end %>
           </td>
         </tr>
+      <tr class="divide">
+        <td colspan="3">
+          <% unless @order_status_id == 'done' %>
+            <%= link_to ' B ', new_order_order_item_path(@order, :patient_id => order_item.patient_id), remote: true, class: 'btn btn-sm btn-primary', id: 'add-item' %>
+            <%= link_to(' U ', order_order_item_path(@order, order_item), method: :delete, class: 'btn btn-sm btn-warning') %>
+          <% end %>
+          <% if @order_status_id == 'to_do' or @order_status_id == 'in_progress' %>
+            <%= link_to ' W ', new_order_item_order_item_result_path(order_item), remote: true, class: 'btn btn-sm btn-success', id: 'add-item' %>
+          <% end %>
+        </td>
+      </tr>
         <% v_i += 1 %>
       <% end %>
     </tbody>
@@ -48,5 +81,19 @@
 </div>
 <div class="d-flex justify-content-between">
   <%= link_to ' Wróc ', orders_path, class: 'btn btn-sm btn-secondary' %>
-  <%= link_to ' + ', new_order_order_item_path(@order), remote: true, class: 'btn btn-sm btn-primary', id: 'add-item' %>
+  <% case @order_status_id %>
+  <% when 'ready_to_do' %>
+    <%= link_to 'Do realizacji', order_change_status_path(@order, :new_status => 'to_do'), method: :patch, class: 'btn btn-sm btn-success' %>
+    <%= link_to ' + ', new_order_order_item_path(@order), remote: true, class: 'btn btn-sm btn-primary', id: 'add-item' %>
+  <% when 'new' %>
+    <%= link_to 'Do realizacji', order_change_status_path(@order, :new_status => 'to_do'), method: :patch, class: 'btn btn-sm btn-success' %>
+    <%= link_to ' + ', new_order_order_item_path(@order), remote: true, class: 'btn btn-sm btn-primary', id: 'add-item' %>
+  <% when 'to_do' %>
+    <%= link_to ' + ', new_order_order_item_path(@order), remote: true, class: 'btn btn-sm btn-primary', id: 'add-item' %>
+  <% when 'in_progress' %>
+    <% if @order.check_all_results %>
+      <%= link_to 'Zamknij zlecenie', order_change_status_path(@order, :new_status => 'done'), method: :patch, class: 'btn btn-sm btn-primary' %>
+    <% end %>
+  <% else %>
+  <% end %>
 </div>

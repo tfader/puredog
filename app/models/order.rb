@@ -19,6 +19,29 @@ class Order < ApplicationRecord
     end
   end
 
+  def check_status
+    if order_status.name.include?('new')
+      if order_items.count > 0
+        'ready_to_do'
+      else
+        'new'
+      end
+    end
+  end
+
+  def check_all_results
+    if order_items.present?
+      order_items.each do |order_item|
+        if order_item.order_item_results.blank?
+          false
+        end
+      end
+      true
+    else
+      false
+    end
+  end
+
   private
   def default_values
     self.ordered ||= DateTime.now.to_date

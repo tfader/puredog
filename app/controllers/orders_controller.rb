@@ -33,6 +33,7 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
+    @order_status_id = @order.order_status.name
   end
 
   def destroy
@@ -40,6 +41,18 @@ class OrdersController < ApplicationController
     if order.delete
       redirect_to orders_path
     end
+  end
+
+  def change_status
+    order = Order.find(params[:order_id])
+    order_status = OrderStatus.find_by_name(params[:new_status])
+    if order_status.present?
+      order.update(:order_status => order_status)
+    else
+      flash[:error] = 'Bład aktualizacji statusu #err1'
+      redirect_to order_path(order)
+    end
+    redirect_to order_path(order)
   end
 
   private

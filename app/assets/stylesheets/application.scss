@@ -65,11 +65,21 @@ body {
 }
 
 .svg {
-  .fill-black {
-    fill: #2C69CF;
-  }
   width: 24px;
   height: 24px;
+}
+
+.svg-small {
+  width: 20px;
+  height: 20px;
+}
+
+.fill-red {
+  fill: red;
+}
+
+.fill-green {
+  fill: green;
 }
 
 .p-small {

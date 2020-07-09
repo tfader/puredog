@@ -63,5 +63,13 @@ class Exam < ApplicationRecord
     [exam_group.name, name].compact.join(' / ')
   end
 
+  def default_unit
+    exam_unit = exam_units.where('is_default = 1').first
+    if exam_unit.blank?
+      exam_unit = exam_units.first
+    end
+    exam_unit.unit
+  end
+
 
 end

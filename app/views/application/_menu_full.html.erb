@@ -17,37 +17,38 @@
             <%= 'Słowniki' %>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <%= link_to('Pacjenci', patients_path, class: 'nav-link') %>
-            <div class="dropdown-divider"></div>
-            <%= link_to('Partoni', patrons_path, class: 'nav-link') %>
-            <div class="dropdown-divider"></div>
-            <%= link_to('Pracownicy', employees_path, class: 'nav-link') %>
-            <div class="dropdown-divider"></div>
-            <%= link_to('Placówki', spots_path, class: 'nav-link') %>
-            <div class="dropdown-divider"></div>
             <%= link_to('Atrybuty', attr_classes_path, class: 'nav-link') %>
             <div class="dropdown-divider"></div>
             <%= link_to('Atrybuty pacjentów', patient_attrs_path, class: 'nav-link') %>
             <div class="dropdown-divider"></div>
             <%= link_to('Atrybuty badań', exam_attrs_path, class: 'nav-link') %>
             <div class="dropdown-divider"></div>
+            <%= link_to('Badania', exams_path, class: 'nav-link') %>
+            <div class="dropdown-divider"></div>
+            <%= link_to('Etapy realizacji zleceń', order_flows_path, class: 'nav-link') %>
+            <div class="dropdown-divider"></div>
+            <%= link_to('Gatunki', varieties_path, class: 'nav-link') %>
+            <div class="dropdown-divider"></div>
             <%= link_to('Grupy badań', exam_groups_path, class: 'nav-link') %>
             <div class="dropdown-divider"></div>
             <%= link_to('Jednostki', units_path, class: 'nav-link') %>
             <div class="dropdown-divider"></div>
-            <%= link_to('Materiały', materials_path, class: 'nav-link') %>
-            <div class="dropdown-divider"></div>
-            <%= link_to('Gatunki', varieties_path, class: 'nav-link') %>
-            <div class="dropdown-divider"></div>
-            <%= link_to('Katalog badań', exams_path, class: 'nav-link') %>
-            <div class="dropdown-divider"></div>
             <%= link_to('Klienci', clients_path, class: 'nav-link') %>
+            <div class="dropdown-divider"></div>
+            <%= link_to('Materiały', materials_path, class: 'nav-link') %>
             <div class="dropdown-divider"></div>
             <%= link_to('Miejscowości', cities_path, class: 'nav-link') %>
             <div class="dropdown-divider"></div>
+            <%= link_to('Pacjenci', patients_path, class: 'nav-link') %>
+            <div class="dropdown-divider"></div>
+            <%= link_to('Partoni', patrons_path, class: 'nav-link') %>
+            <div class="dropdown-divider"></div>
+            <%= link_to('Placówki', spots_path, class: 'nav-link') %>
+            <div class="dropdown-divider"></div>
+            <%= link_to('Pracownicy', employees_path, class: 'nav-link') %>
+            <div class="dropdown-divider"></div>
             <%= link_to('Statusy zleceń', order_statuses_path, class: 'nav-link') %>
             <div class="dropdown-divider"></div>
-            <%= link_to('Etapy realizacji zleceń', order_flows_path, class: 'nav-link') %>
           </div>
         </li>
         <li class="nav-item dropdown">

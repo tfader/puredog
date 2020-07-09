@@ -3,12 +3,14 @@
     <div class="card shadow" >
       <div class="card-body">
         <h5 class="card-title mb-4"><%= 'Zamówienie numer - '+@order.id.to_s %></h5>
+        <h6 class="card-subtitle mb-4"><span class="badge badge-success"><%= t @order.order_status.name %></span></h6>
         <h6 class="card-subtitle mb-4"><%= @order.client.name_with_city %></h6>
         <h6 class="card-subtitle mb-3 text-muted"><%= 'Złożone: ' %><%= @order.placed %></h6>
         <h6 class="card-subtitle mb-3 text-muted"><%= 'Data zamówienia: ' %><%= @order.ordered %></h6>
         <%= render partial: 'order_items_list' %>
         <div id="add_order_item" class="mt-4">
-
+        </div>
+        <div id="order_item_result" class="mt-4">
         </div>
       </div>
     </div>

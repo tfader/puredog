@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
 
+  before_action :set_locale
+
   helper_method :current_employee
 
   @where_you_are = 'Strona główna'
@@ -18,6 +20,10 @@ class ApplicationController < ActionController::Base
         false
       end
     end
+  end
+
+  def set_locale
+    I18n.locale = params[:locale] || I18n.default_locale
   end
 
 end

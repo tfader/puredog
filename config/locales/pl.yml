@@ -29,7 +29,8 @@
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 
-en:
+pl:
   hello: "Hello world"
-  to_do: "To Do"
-  new: "New"
+  to_do: "Do wykonania"
+  new: "Nowe"
+  done: "Zrealizowane"

@@ -16,7 +16,12 @@
             <h5 class="card-title"><%= exam_unit.unit.name %></h5>
             <h5 class="card-title"><%= exam_unit.unit.code %></h5>
           </div>
+          <div class="d-flex justify-content-between mb-2">
+            <h6 class="card-title mb-4"><%= 'Min: '+exam_unit.norm_min.to_s %></h6>
+            <h6 class="card-title mb-4"><%= 'Max: '+exam_unit.norm_max.to_s %></h6>
+          </div>
           <h6 class="card-subtitle mb-4 text-muted"><%= 'Domyślny: ' %><%= exam_unit.is_default_text %></h6>
+          <%= link_to 'Edycja', edit_exam_exam_unit_path(@exam, exam_unit), class: 'card-link' %>
           <%= link_to 'Usuń', exam_exam_unit_path(@exam, exam_unit), method: :delete, class: 'card-link red' %>
         </div>
       </div>

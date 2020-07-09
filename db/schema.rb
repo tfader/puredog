@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_08_122049) do
+ActiveRecord::Schema.define(version: 2020_07_09_124223) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,6 +97,8 @@ ActiveRecord::Schema.define(version: 2020_07_08_122049) do
     t.integer "is_default", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "norm_min"
+    t.integer "norm_max"
     t.index ["exam_id"], name: "index_exam_units_on_exam_id"
     t.index ["unit_id"], name: "index_exam_units_on_unit_id"
   end
@@ -132,6 +134,17 @@ ActiveRecord::Schema.define(version: 2020_07_08_122049) do
     t.integer "flow_step"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "order_item_results", force: :cascade do |t|
+    t.bigint "order_item_id"
+    t.integer "result"
+    t.datetime "result_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "unit_id"
+    t.index ["order_item_id"], name: "index_order_item_results_on_order_item_id"
+    t.index ["unit_id"], name: "index_order_item_results_on_unit_id"
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -287,6 +300,8 @@ ActiveRecord::Schema.define(version: 2020_07_08_122049) do
   add_foreign_key "exam_varieties", "varieties"
   add_foreign_key "exams", "exam_groups"
   add_foreign_key "exams", "materials"
+  add_foreign_key "order_item_results", "order_items"
+  add_foreign_key "order_item_results", "units"
   add_foreign_key "order_items", "exams"
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "patients"

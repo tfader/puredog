@@ -2,6 +2,7 @@ class OrderItem < ApplicationRecord
   belongs_to :order
   belongs_to :patient
   belongs_to :exam
+  has_many :order_item_results
 
 
   def is_duplicate(p_id = self.id, p_patient_id = self.patient_id, p_exam_id = self.exam_id)
@@ -22,9 +23,56 @@ class OrderItem < ApplicationRecord
         .where('exists (select null from stations where stations.id = station_exams.station_id and stations.spot_id = ?)', order.spot_id).first
     if station_exam.present?
       station_exam.station.name
-    else
-      'Nie przypisane'
     end
+  end
+
+  def show_results
+    if order_item_results.present?
+      v_results_array = []
+      order_item_results.all.order(:result_time).each do |order_item_result|
+        v_results_array.push(order_item_result.result)
+      end
+      v_results = v_results_array.join(' / ')
+    else
+      v_results = 'Brak'
+    end
+    v_results
+  end
+
+  def last_result
+    if order_item_results.present?
+      v_last_result = order_item_results.all.order(:result_time).last
+    else
+      v_last_result = nil
+    end
+    v_last_result
+  end
+
+  def result_mark
+    v_ret = 0
+    v_last_result = last_result
+    if v_last_result.present?
+      if exam.exam_units.present?
+        exam_unit = exam.exam_units.find_by(exam_id: exam.id)
+        if exam_unit.present?
+          v_norm_min = exam_unit.norm_min
+          v_norm_max = exam_unit.norm_max
+          if v_norm_min.present?
+            if v_last_result.result < v_norm_min
+              v_ret = -1
+            end
+          end
+          if v_norm_max.present?
+            if v_last_result.result > v_norm_max
+              v_ret = 1
+            end
+          end
+        end
+      end
+    else
+      v_ret = nil
+    end
+    v_ret
   end
 
 end

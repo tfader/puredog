@@ -2,7 +2,17 @@
 
   <div class="form-group">
     <div class="form-text"><%= 'Jednostka' %></div>
-    <%= form.collection_select :unit_id, @units.all.order(:name), :id, :name_with_code, include_blank: false,  multiple: false, :class => 'form-control', :option => 'Small select' %>
+    <%= form.collection_select :unit_id, @units.all.order(:name), :id, :name_with_code, include_blank: false,  multiple: false, :class => 'form-control', :option => 'Small select', autofocus: true %>
+  </div>
+
+  <div class="form-group">
+    <label>Norma minimalna</label>
+    <%= form.number_field :norm_min, class: 'form-control', :step => 0.00001, min_value: 0 %>
+  </div>
+
+  <div class="form-group">
+    <label>Norma maksymalna</label>
+    <%= form.number_field :norm_max, class: 'form-control', :step => 0.00001, min_value: 0 %>
   </div>
 
   <div class="form-group">

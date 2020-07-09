@@ -45,6 +45,7 @@ Rails.application.routes.draw do
 
   resources :units do
     resources :unit_rates
+    get :autocomplete_unit_name, on: :collection
   end
 
   resources :patrons do
@@ -61,6 +62,11 @@ Rails.application.routes.draw do
 
   resources :orders do
     resources :order_items
+    patch :change_status
+  end
+
+  resources :order_items do
+    resources :order_item_results
   end
 
   resources :order_statuses do

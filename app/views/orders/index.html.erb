@@ -17,7 +17,7 @@
             <h5 class="card-title mb-4"><%= order.order_status.name %></h5>
           </div>
           <h6 class="card-subtitle mb-4"><%= order.client.name_with_city %></h6>
-          <h6 class="card-subtitle mb-4"><span class="badge badge-success"><%= order.order_status.name %></span></h6>
+          <h6 class="card-subtitle mb-4"><span class="badge badge-success"><%= t order.order_status.name %></span></h6>
           <h6 class="card-subtitle mb-3 text-muted"><%= 'Data zamówienia: ' %><%= order.ordered %></h6>
           <h6 class="card-subtitle mb-3 text-muted"><%= 'Zarejestrowane: ' %><%= order.placed %></h6>
           <%= link_to 'Edycja', order_path(order), class: 'card-link' %>

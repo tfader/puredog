@@ -4,6 +4,15 @@ class UnitsController < ApplicationController
     redirect_to units_path
   end
 
+  def autocomplete_unit_name(p_exam = nil)
+    name = params[:term].upcase
+    units = Unit.where(
+        'upper(units.name) LIKE ? or upper(units.code) like ?',
+        "%#{name}%", "%#{name}%"
+    ).order(:code).all
+    render :json => units.map { |unit| {:id => unit.id, :label => unit.name_with_code, :value => unit.name_with_code} }
+  end
+
   def index
     @where_you_are = 'Jednostki'
     @units = Unit.all.order(:name)
