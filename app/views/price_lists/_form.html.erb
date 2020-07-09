@@ -23,6 +23,11 @@
     <label><%= 'Cito' %></label>
   </div>
 
+  <div class="form-group">
+    <%= form.check_box :is_general, class: 'input', id: 'is_general', type: 'checkbox' %>
+    <label><%= 'Ogólny' %></label>
+  </div>
+
   <div class="mt-4">
     <div class="d-flex justify-content-between">
       <%= form.submit 'Zapisz', class: 'btn btn-primary' %>

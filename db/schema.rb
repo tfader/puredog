@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_09_175914) do
+ActiveRecord::Schema.define(version: 2020_07_09_203817) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -244,6 +244,7 @@ ActiveRecord::Schema.define(version: 2020_07_09_175914) do
     t.datetime "updated_at", null: false
     t.string "name"
     t.integer "is_cito", default: 0
+    t.integer "is_general", default: 0
     t.index ["client_id"], name: "index_price_lists_on_client_id"
   end
 

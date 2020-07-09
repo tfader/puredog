@@ -84,7 +84,8 @@ class OrderItem < ApplicationRecord
         if price_list_item.present?
           v_price = price_list_item.price
         end
-      else
+      end
+      if v_price == 0
         price_list = order.client.price_lists.find_by(is_cito: 0)
         if price_list.present?
           price_list_item = price_list.price_list_items.find_by(exam_id: exam.id, is_cito: 1)
@@ -93,7 +94,8 @@ class OrderItem < ApplicationRecord
           end
         end
       end
-    else
+    end
+    if v_price == 0
       price_list = order.client.price_lists.find_by(is_cito: 0)
       if price_list.present?
         price_list_item = price_list.price_list_items.find_by(exam_id: exam.id, is_cito: 0)
@@ -101,6 +103,36 @@ class OrderItem < ApplicationRecord
           v_price = price_list_item.price
         end
       end
+    end
+    if v_price == 0
+      if order.is_cito == 1 or is_cito == 1
+        price_list = PriceList.find_by(is_general: 1, is_cito: 1)
+        if price_list.present?
+          price_list_item = price_list.price_list_items.find_by(exam_id: exam.id)
+          if price_list_item.present?
+            v_price = price_list_item.price
+          end
+        end
+        if v_price == 0
+          price_list = PriceList.find_by(is_general: 1, is_cito: 0)
+          if price_list.present?
+            price_list_item = price_list.price_list_items.find_by(exam_id: exam.id, is_cito: 1)
+            if price_list_item.present?
+              v_price = price_list_item.price
+            end
+          end
+        end
+      end
+      if v_price == 0
+        price_list = PriceList.find_by(is_general: 1, is_cito: 0)
+        if price_list.present?
+          price_list_item = price_list.price_list_items.find_by(exam_id: exam.id, is_cito: 0)
+          if price_list_item.present?
+            v_price = price_list_item.price
+          end
+        end
+      end
+
     end
     v_price
   end

@@ -60,6 +60,6 @@ class PriceListsController < ApplicationController
 
   private
   def price_list_params
-    params.require(:price_list).permit( :exam, :is_cito )
+    params.require(:price_list).permit( :exam, :is_cito, :is_general )
   end
 end
