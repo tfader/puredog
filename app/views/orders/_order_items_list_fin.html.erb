@@ -58,4 +58,5 @@
 </div>
 <div class="d-flex justify-content-between">
   <%= link_to ' Wróc ', orders_path, class: 'btn btn-sm btn-secondary' %>
+  <%= link_to ' PDF ', order_pdf_fin_path(@order), method: :patch, class: 'btn btn-sm btn-secondary' %>
 </div>

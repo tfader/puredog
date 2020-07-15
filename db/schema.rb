@@ -94,7 +94,7 @@ ActiveRecord::Schema.define(version: 2020_07_09_203817) do
   create_table "exam_units", force: :cascade do |t|
     t.bigint "exam_id"
     t.bigint "unit_id"
-    t.integer "is_default", default: 0
+    t.integer "is_default", default: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "norm_min"

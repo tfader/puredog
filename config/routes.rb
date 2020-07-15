@@ -64,6 +64,7 @@ Rails.application.routes.draw do
     resources :order_items
     patch :change_status
     patch :to_archive
+    patch :pdf_fin
     get :show_fin
   end
 
