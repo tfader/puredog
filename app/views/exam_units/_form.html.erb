@@ -5,6 +5,18 @@
     <%= form.collection_select :unit_id, @units.all.order(:name), :id, :name_with_code, include_blank: false,  multiple: false, :class => 'form-control', :option => 'Small select', autofocus: true %>
   </div>
 
+  <% if @exam_unit.variety.present? %>
+    <div class="form-group">
+      <label><%= 'Gatunek' %></label>
+      <%= form.text_field :variety_id, data: { autocomplete: autocomplete_variety_name_varieties_path }, 'data-auto-focus' => true, :class => 'form-control select', :option => 'Small select', value: @exam_unit.variety.name %>
+    </div>
+  <% else %>
+    <div class="form-group">
+      <label><%= 'Gatunek' %></label>
+      <%= form.text_field :variety_id, data: { autocomplete: autocomplete_variety_name_varieties_path }, 'data-auto-focus' => true, :class => 'form-control select', :option => 'Small select' %>
+    </div>
+  <% end %>
+
   <div class="form-group">
     <label>Norma minimalna</label>
     <%= form.number_field :norm_min, class: 'form-control', :step => 0.00001, min_value: 0 %>

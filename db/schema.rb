@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_09_203817) do
+ActiveRecord::Schema.define(version: 2020_08_20_123905) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,8 +99,10 @@ ActiveRecord::Schema.define(version: 2020_07_09_203817) do
     t.datetime "updated_at", null: false
     t.decimal "norm_min"
     t.decimal "norm_max"
+    t.bigint "variety_id"
     t.index ["exam_id"], name: "index_exam_units_on_exam_id"
     t.index ["unit_id"], name: "index_exam_units_on_unit_id"
+    t.index ["variety_id"], name: "index_exam_units_on_variety_id"
   end
 
   create_table "exam_varieties", force: :cascade do |t|
@@ -320,6 +322,7 @@ ActiveRecord::Schema.define(version: 2020_07_09_203817) do
   add_foreign_key "exam_attrs", "attrs"
   add_foreign_key "exam_units", "exams"
   add_foreign_key "exam_units", "units"
+  add_foreign_key "exam_units", "varieties"
   add_foreign_key "exam_varieties", "exams"
   add_foreign_key "exam_varieties", "varieties"
   add_foreign_key "exams", "exam_groups"

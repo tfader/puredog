@@ -17,6 +17,9 @@
             <h5 class="card-title"><%= exam_unit.unit.code %></h5>
           </div>
           <div class="d-flex justify-content-between mb-2">
+            <h5 class="card-title mb-4"><%= 'Gatunek: '+exam_unit.variety.name %></h5>
+          </div>
+          <div class="d-flex justify-content-between mb-2">
             <h6 class="card-title mb-4"><%= 'Min: '+exam_unit.norm_min.to_s %></h6>
             <h6 class="card-title mb-4"><%= 'Max: '+exam_unit.norm_max.to_s %></h6>
           </div>
