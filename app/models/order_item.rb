@@ -53,7 +53,7 @@ class OrderItem < ApplicationRecord
     v_last_result = last_result
     if v_last_result.present?
       if exam.exam_units.present?
-        exam_unit = exam.exam_units.find_by(exam_id: exam.id)
+        exam_unit = exam.exam_units.find_by(exam_id: exam.id, variety_id: patient.variety_id)
         if exam_unit.present?
           v_norm_min = exam_unit.norm_min
           v_norm_max = exam_unit.norm_max

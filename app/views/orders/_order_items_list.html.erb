@@ -48,7 +48,8 @@
               <% order_item.order_item_results.each do |order_item_result| %>
                 <% if last_result.present? %>
                   <% if last_result.id != order_item_result.id %>
-                    <%= order_item_result.result %><%= ',' %>
+                    <%= order_item_result.result %>
+                    <%= '||' %>
                   <% end %>
                 <% else %>
                   <%= order_item_result.result %>
