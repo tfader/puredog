@@ -74,6 +74,12 @@ class OrdersController < ApplicationController
     @order_status_id = @order.order_status.name
   end
 
+  def pdf_fin
+    order = Order.find(params[:order_id])
+    pdf = OrderPdf.new(order)
+    send_data pdf.render, filename: "Order #{order.id}", type: "application/pdf", disposition: "inline"
+  end
+
   private
   def order_params
     params.require(:order).permit(:placed, :ordered, :is_cito )
