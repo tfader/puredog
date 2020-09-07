@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_20_123905) do
+ActiveRecord::Schema.define(version: 2020_09_07_175716) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,15 @@ ActiveRecord::Schema.define(version: 2020_08_20_123905) do
     t.index ["attr_id"], name: "index_exam_attrs_on_attr_id"
   end
 
+  create_table "exam_group_exams", force: :cascade do |t|
+    t.bigint "exam_group_id"
+    t.bigint "exam_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exam_group_id"], name: "index_exam_group_exams_on_exam_group_id"
+    t.index ["exam_id"], name: "index_exam_group_exams_on_exam_id"
+  end
+
   create_table "exam_groups", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -94,7 +103,7 @@ ActiveRecord::Schema.define(version: 2020_08_20_123905) do
   create_table "exam_units", force: :cascade do |t|
     t.bigint "exam_id"
     t.bigint "unit_id"
-    t.integer "is_default", default: 1
+    t.integer "is_default", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "norm_min"
@@ -119,9 +128,7 @@ ActiveRecord::Schema.define(version: 2020_08_20_123905) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "material_id"
-    t.bigint "exam_group_id"
     t.string "description"
-    t.index ["exam_group_id"], name: "index_exams_on_exam_group_id"
     t.index ["material_id"], name: "index_exams_on_material_id"
   end
 
@@ -145,6 +152,8 @@ ActiveRecord::Schema.define(version: 2020_08_20_123905) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "unit_id"
+    t.bigint "exam_id"
+    t.index ["exam_id"], name: "index_order_item_results_on_exam_id"
     t.index ["order_item_id"], name: "index_order_item_results_on_order_item_id"
     t.index ["unit_id"], name: "index_order_item_results_on_unit_id"
   end
@@ -156,6 +165,8 @@ ActiveRecord::Schema.define(version: 2020_08_20_123905) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "is_cito", default: 0
+    t.bigint "exam_group_id"
+    t.index ["exam_group_id"], name: "index_order_items_on_exam_group_id"
     t.index ["exam_id"], name: "index_order_items_on_exam_id"
     t.index ["order_id"], name: "index_order_items_on_order_id"
     t.index ["patient_id"], name: "index_order_items_on_patient_id"
@@ -180,8 +191,10 @@ ActiveRecord::Schema.define(version: 2020_08_20_123905) do
     t.bigint "order_status_id"
     t.integer "is_cito", default: 0
     t.integer "is_archive", default: 0
+    t.bigint "patient_id"
     t.index ["client_id"], name: "index_orders_on_client_id"
     t.index ["order_status_id"], name: "index_orders_on_order_status_id"
+    t.index ["patient_id"], name: "index_orders_on_patient_id"
     t.index ["spot_id"], name: "index_orders_on_spot_id"
   end
 
@@ -236,6 +249,8 @@ ActiveRecord::Schema.define(version: 2020_08_20_123905) do
     t.decimal "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "exam_group_id"
+    t.index ["exam_group_id"], name: "index_price_list_items_on_exam_group_id"
     t.index ["exam_id"], name: "index_price_list_items_on_exam_id"
     t.index ["price_list_id"], name: "index_price_list_items_on_price_list_id"
   end
@@ -320,27 +335,32 @@ ActiveRecord::Schema.define(version: 2020_08_20_123905) do
   add_foreign_key "employee_users", "employees"
   add_foreign_key "employee_users", "users"
   add_foreign_key "exam_attrs", "attrs"
+  add_foreign_key "exam_group_exams", "exam_groups"
+  add_foreign_key "exam_group_exams", "exams"
   add_foreign_key "exam_units", "exams"
   add_foreign_key "exam_units", "units"
   add_foreign_key "exam_units", "varieties"
   add_foreign_key "exam_varieties", "exams"
   add_foreign_key "exam_varieties", "varieties"
-  add_foreign_key "exams", "exam_groups"
   add_foreign_key "exams", "materials"
+  add_foreign_key "order_item_results", "exams"
   add_foreign_key "order_item_results", "order_items"
   add_foreign_key "order_item_results", "units"
+  add_foreign_key "order_items", "exam_groups"
   add_foreign_key "order_items", "exams"
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "patients"
   add_foreign_key "order_statuses", "order_flows"
   add_foreign_key "orders", "clients"
   add_foreign_key "orders", "order_statuses"
+  add_foreign_key "orders", "patients"
   add_foreign_key "orders", "spots"
   add_foreign_key "patient_attr_values", "attrs"
   add_foreign_key "patient_attr_values", "patients"
   add_foreign_key "patient_attrs", "attrs"
   add_foreign_key "patients", "patrons"
   add_foreign_key "patients", "varieties"
+  add_foreign_key "price_list_items", "exam_groups"
   add_foreign_key "price_list_items", "price_lists"
   add_foreign_key "price_lists", "clients"
   add_foreign_key "spots", "cities"

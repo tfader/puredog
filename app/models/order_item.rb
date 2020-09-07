@@ -1,7 +1,8 @@
 class OrderItem < ApplicationRecord
   belongs_to :order
-  belongs_to :patient
-  belongs_to :exam
+  belongs_to :patient, optional: true
+  belongs_to :exam, optional: true
+  belongs_to :exam_group, optional: true
   has_many :order_item_results
 
 
@@ -80,7 +81,11 @@ class OrderItem < ApplicationRecord
     if order.is_cito == 1 or is_cito == 1
       price_list = order.client.price_lists.find_by(is_cito: 1)
       if price_list.present?
-        price_list_item = price_list.price_list_items.find_by(exam_id: exam.id)
+        if Parameter.get_value('price_by_group') == 0
+          price_list_item = price_list.price_list_items.find_by(exam_id: exam.id)
+        else
+          price_list_item = price_list.price_list_items.find_by(exam_group_id: exam_group_id)
+        end
         if price_list_item.present?
           v_price = price_list_item.price
         end
@@ -88,7 +93,11 @@ class OrderItem < ApplicationRecord
       if v_price == 0
         price_list = order.client.price_lists.find_by(is_cito: 0)
         if price_list.present?
-          price_list_item = price_list.price_list_items.find_by(exam_id: exam.id, is_cito: 1)
+          if Parameter.get_value('price_by_group') == 0
+            price_list_item = price_list.price_list_items.find_by(exam_id: exam.id, is_cito: 1)
+          else
+            price_list_item = price_list.price_list_items.find_by(exam_group_id: exam_group_id, is_cito: 1)
+          end
           if price_list_item.present?
             v_price = price_list_item.price
           end
@@ -98,7 +107,11 @@ class OrderItem < ApplicationRecord
     if v_price == 0
       price_list = order.client.price_lists.find_by(is_cito: 0)
       if price_list.present?
-        price_list_item = price_list.price_list_items.find_by(exam_id: exam.id, is_cito: 0)
+        if Parameter.get_value('price_by_group') == 0
+          price_list_item = price_list.price_list_items.find_by(exam_id: exam.id, is_cito: 0)
+        else
+          price_list_item = price_list.price_list_items.find_by(exam_group_id: exam_group_id, is_cito: 0)
+        end
         if price_list_item.present?
           v_price = price_list_item.price
         end
@@ -108,7 +121,11 @@ class OrderItem < ApplicationRecord
       if order.is_cito == 1 or is_cito == 1
         price_list = PriceList.find_by(is_general: 1, is_cito: 1)
         if price_list.present?
-          price_list_item = price_list.price_list_items.find_by(exam_id: exam.id)
+          if Parameter.get_value('price_by_group') == 0
+            price_list_item = price_list.price_list_items.find_by(exam_id: exam.id)
+          else
+            price_list_item = price_list.price_list_items.find_by(exam_group_id: exam_group_id)
+          end
           if price_list_item.present?
             v_price = price_list_item.price
           end
@@ -116,7 +133,11 @@ class OrderItem < ApplicationRecord
         if v_price == 0
           price_list = PriceList.find_by(is_general: 1, is_cito: 0)
           if price_list.present?
-            price_list_item = price_list.price_list_items.find_by(exam_id: exam.id, is_cito: 1)
+            if Parameter.get_value('price_by_group') == 0
+              price_list_item = price_list.price_list_items.find_by(exam_id: exam.id, is_cito: 1)
+            else
+              price_list_item = price_list.price_list_items.find_by(exam_group_id: exam_group_id, is_cito: 1)
+            end
             if price_list_item.present?
               v_price = price_list_item.price
             end
@@ -126,7 +147,11 @@ class OrderItem < ApplicationRecord
       if v_price == 0
         price_list = PriceList.find_by(is_general: 1, is_cito: 0)
         if price_list.present?
-          price_list_item = price_list.price_list_items.find_by(exam_id: exam.id, is_cito: 0)
+          if Parameter.get_value('price_by_group') == 0
+            price_list_item = price_list.price_list_items.find_by(exam_id: exam.id, is_cito: 0)
+          else
+            price_list_item = price_list.price_list_items.find_by(exam_group_id: exam_group_id, is_cito: 0)
+          end
           if price_list_item.present?
             v_price = price_list_item.price
           end

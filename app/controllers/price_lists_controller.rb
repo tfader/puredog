@@ -48,11 +48,21 @@ class PriceListsController < ApplicationController
   end
 
   def add_all
-    exams = Exam.all
-    price_list = PriceList.find(params[:price_list_id])
-    exams.each do |exam|
-      if price_list.price_list_items.find_by(exam_id: exam.id).blank?
-        PriceListItem.create(:price_list => price_list, :exam => exam, :price => 100, :is_cito => price_list.is_cito)
+    if Parameter.get_value('price_by_group') == 0
+      exams = Exam.all
+      price_list = PriceList.find(params[:price_list_id])
+      exams.each do |exam|
+        if price_list.price_list_items.find_by(exam_id: exam.id).blank?
+          PriceListItem.create(:price_list => price_list, :exam => exam, :price => Parameter.get_value('default_exam_price'), :is_cito => price_list.is_cito)
+        end
+      end
+    else
+      exam_groups = ExamGroup.all
+      price_list = PriceList.find(params[:price_list_id])
+      exam_groups.each do |exam_group|
+        if price_list.price_list_items.find_by(exam_group_id: exam_group.id).blank?
+          PriceListItem.create(:price_list => price_list, :exam_group => exam_group, :price => Parameter.get_value('default_exam_price'), :is_cito => price_list.is_cito)
+        end
       end
     end
     redirect_to price_list_price_list_items_path(price_list)

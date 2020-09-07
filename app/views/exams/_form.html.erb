@@ -6,11 +6,6 @@
   </div>
 
   <div class="form-group">
-    <div class="form-text"><%= 'Grupa badań' %></div>
-    <%= form.collection_select :exam_group_id, ExamGroup.all.order(:name), :id, :name, include_blank: false,  multiple: false, :class => 'form-control', :option => 'Small select' %>
-  </div>
-
-  <div class="form-group">
     <div class="form-text"><%= 'Materiał' %></div>
     <%= form.collection_select :material_id, Material.all.order(:name), :id, :name, include_blank: false,  multiple: false, :class => 'form-control', :option => 'Small select' %>
   </div>

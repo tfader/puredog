@@ -1,11 +1,11 @@
 class Exam < ApplicationRecord
   validates :name, presence: true, uniqueness: true
 
-  belongs_to :exam_group
   belongs_to :material
   has_many :exam_varieties
   has_many :exam_units
   has_many :price_list_items
+  has_many :exam_group_exams
 
   class << self
     def search_by_name(p_search)
@@ -70,6 +70,42 @@ class Exam < ApplicationRecord
       exam_unit = exam_units.first
     end
     exam_unit.unit
+  end
+
+  def default_norm(p_variety_id = nil)
+    if p_variety_id.blank?
+      exam_unit = exam_units
+                      .where('is_default = 1')
+                      .first
+      if exam_unit.blank?
+        exam_unit = exam_units
+                        .first
+      end
+    else
+      exam_unit = exam_units
+                      .where('is_default = 1')
+                      .where('variety_id = ?', p_variety_id)
+                      .first
+      if exam_unit.blank?
+        exam_unit = exam_units
+                        .where('variety_id = ?', p_variety_id)
+                        .first
+      end
+      if exam_unit.blank?
+        exam_unit = exam_units
+                        .where('is_default = 1')
+                        .first
+        if exam_unit.blank?
+          exam_unit = exam_units
+                          .first
+        end
+      end
+    end
+    if exam_unit.norm_min.present? and exam_unit.norm_max.present?
+      exam_unit
+    else
+      nil
+    end
   end
 
 

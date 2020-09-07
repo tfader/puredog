@@ -4,6 +4,12 @@
     <label><%= 'Klient' %></label>
     <%= order_form.text_field :client_id, data: { autocomplete: autocomplete_client_name_clients_path }, 'data-auto-focus' => true, :class => 'form-control select', :option => 'Small select', autofocus: true %>
   </div>
+  <% if Parameter.get_value('multiple_patient_on_order') == 0 %>
+    <div class="form-group">
+      <label><%= 'Pacjent' %></label>
+      <%= order_form.text_field :patient_id, data: { autocomplete: autocomplete_patient_name_patients_path }, 'data-auto-focus' => true, :class => 'form-control select', :option => 'Small select', id: 'patient_id' %>
+    </div>
+  <% end %>
 
   <div class="form-group">
     <label>Data zlecenie</label>

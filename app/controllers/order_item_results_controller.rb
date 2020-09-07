@@ -3,7 +3,11 @@ class OrderItemResultsController < ApplicationController
   def new
     @order_item = OrderItem.find(params[:order_item_id])
     @order = @order_item.order
-    @order_item_result = OrderItemResult.new
+    @order_item_results = @order_item.order_item_results
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def create

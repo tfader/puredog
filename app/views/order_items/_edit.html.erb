@@ -1,0 +1,77 @@
+<div class="modal-header d-flex justify-content-between">
+  <div>
+    <h4 class="modal-title" id="myModalLabel"><%= 'Wyniki badań' %></h4>
+  </div>
+</div>
+<div class="modal-body">
+  <%= form_with model: [@order, @order_item], local: true do |form| %>
+    <% @order_item.order_item_results.order(:id).each do |order_item_result| %>
+      <%= fields_for "order_item_results[]", order_item_result do |f| %>
+        <div class="form-group">
+          <div class="d-flex justify-content-between">
+            <% if order_item_result.result.blank? %>
+              <div class="red" id=<%= order_item_result.id %>>
+                <label><%= order_item_result.exam.name %><%= ' - ' %></label>
+                <label><%= order_item_result.exam.default_unit.code %></label>
+              </div>
+            <% else %>
+              <div class="green" id=<%= order_item_result.id %>>
+                <label><%= order_item_result.exam.name %><%= ' - ' %></label>
+                <label><%= order_item_result.exam.default_unit.code %></label>
+              </div>
+            <% end %>
+            <div>
+              <% default_norm = order_item_result.exam.default_norm(@order_item.order.patient.variety_id) %>
+              <% if default_norm.present? %>
+                <label><%= 'min: ' %><strong><%= default_norm.norm_min %></strong><%= ' max: ' %><strong><%= default_norm.norm_max %></strong></label>
+                <% if order_item_result.result.present? %>
+                  <% result_norm = order_item_result.result_norm %>
+                  <% if result_norm == 0 %>
+                    <%= inline_svg('check.svg', class: 'fill-green') %>
+                  <% else %>
+                    <% if result_norm < 0 %>
+                      <%= inline_svg('arrow_downward.svg', class: 'fill-red') %>
+                    <% else %>
+                      <%= inline_svg('arrow_upward.svg', class: 'fill-red') %>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              <% else %>
+                <label class="red"><strong><%= 'Brak norm' %></strong></label>
+              <% end %>
+            </div>
+          </div>
+          <% if order_item_result.result.blank? %>
+            <%= f.number_field :result, class: 'form-control', :step => 0.00001, min_value: 0, id: 'first_exam_result', onchange: "changeBackground(#{order_item_result.id}, this);" %>
+          <% else %>
+            <%= f.number_field :result, class: 'form-control', :step => 0.00001, min_value: 0, onchange: "changeBackground(#{order_item_result.id}, this);" %>
+          <% end %>
+        </div>
+      <% end %>
+
+    <% end %>
+    <div class="d-flex justify-content-between">
+      <div class="btn btn-sm btn-secondary" data-dismiss="modal">
+        <%= 'Anuluj' %>
+      </div>
+      <%= form.submit 'Zapisz', class: 'btn btn-sm btn-primary' %>
+    </div>
+  <% end %>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+    $('#modal-window').on('shown.bs.modal', function() {
+        $('#first_exam_result').focus();
+    })
+    function changeBackground(obj1, obj2) {
+        if(obj2.value.length > 0 )
+        {
+            document.getElementById(obj1).style.color = 'green';
+        }
+        else
+        {
+            document.getElementById(obj1).style.color = 'red';
+        }
+    }
+</script>
+

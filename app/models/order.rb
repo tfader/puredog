@@ -1,6 +1,7 @@
 class Order < ApplicationRecord
   belongs_to :spot
   belongs_to :client
+  belongs_to :patient, optional: true
   belongs_to :order_status
   has_many :order_items
 
@@ -20,11 +21,11 @@ class Order < ApplicationRecord
   end
 
   def check_status
-    if order_status.name.include?('new')
+    if order_status.name.include?('form')
       if order_items.count > 0
         'ready_to_do'
       else
-        'new'
+        'form'
       end
     end
   end

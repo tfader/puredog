@@ -41,7 +41,10 @@ Rails.application.routes.draw do
 
   resources :exam_attrs
 
-  resources :exam_groups
+  resources :exam_groups do
+    get :autocomplete_exam_group_name, on: :collection
+    resources :exam_group_exams
+  end
 
   resources :units do
     resources :unit_rates
@@ -64,12 +67,12 @@ Rails.application.routes.draw do
     resources :order_items
     patch :change_status
     patch :to_archive
-    patch :pdf_fin
     get :show_fin
   end
 
   resources :order_items do
     resources :order_item_results
+    put :update_results
   end
 
   resources :order_statuses do
@@ -83,5 +86,7 @@ Rails.application.routes.draw do
     resources :price_list_items do
     end
   end
+
+  resources :parameters
 
 end

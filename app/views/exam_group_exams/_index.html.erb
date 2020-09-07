@@ -1,0 +1,24 @@
+<div class="row mt-3">
+  <div class="col">
+    <div class="d-flex justify-content-between">
+      <h5>
+        <%= @exam_group.name %>
+      </h5>
+      <%= link_to 'Dodaj', new_exam_group_exam_group_exam_path(@exam_group), class: 'btn btn-sm btn-primary' %>
+    </div>
+  </div>
+</div>
+<div class="row mt-3">
+  <% @exam_group_exams.each do |exam_group_exam| %>
+    <div class="col-md-4 col-sm-12">
+      <div class="card m-1 mb-3">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <h5 class="card-title"><%= exam_group_exam.exam.name %></h5>
+            <%= link_to('Usuń', exam_group_exam_group_exam_path(@exam_group, exam_group_exam), method: :delete, class: 'card-link red') %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

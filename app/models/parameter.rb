@@ -25,4 +25,17 @@ class Parameter < ApplicationRecord
       end
     end
   end
+
+  def value_type_desc
+    if value_type == '1'
+      'String'
+    else
+      if value_type == '2'
+        'Number'
+      else
+        'Date'
+      end
+    end
+
+  end
 end

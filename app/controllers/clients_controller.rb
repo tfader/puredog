@@ -14,7 +14,6 @@ class ClientsController < ApplicationController
   end
 
   def index
-    @where_you_are = 'Klienci'
     @clients = Client.all
   end
 

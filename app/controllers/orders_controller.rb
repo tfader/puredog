@@ -20,6 +20,7 @@ class OrdersController < ApplicationController
     @order = Order.new
     @order.assign_attributes(order_params)
     @order.client = Client.search_by_id_or_second(params[:order][:client_id])
+    @order.patient = Patient.search_by_patron_and_name(params[:order][:patient_id])
     @order.order_status = Order.first_step_status
     @order.spot = current_employee.current_spot
     if @order.valid?
@@ -74,15 +75,9 @@ class OrdersController < ApplicationController
     @order_status_id = @order.order_status.name
   end
 
-  def pdf_fin
-    order = Order.find(params[:order_id])
-    pdf = OrderPdf.new(order)
-    send_data pdf.render, filename: "Order #{order.id}", type: "application/pdf", disposition: "inline"
-  end
-
   private
   def order_params
-    params.require(:order).permit(:placed, :ordered, :is_cito )
+    params.require(:order).permit(:placed, :ordered, :is_cito, :patient_id )
   end
 
 end

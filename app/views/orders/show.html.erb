@@ -10,6 +10,9 @@
         </div>
         <h6 class="card-subtitle mb-4"><span class="badge badge-success"><%= t @order.order_status.name %></span></h6>
         <h6 class="card-subtitle mb-4"><%= @order.client.name_with_city %></h6>
+        <% if Parameter.get_value('multiple_patient_on_order') == 0 %>
+          <h6 class="card-subtitle mb-4"><%= @order.patient.name_with_patron_name %></h6>
+        <% end %>
         <h6 class="card-subtitle mb-3 text-muted"><%= 'Zlecone: ' %><%= @order.placed %></h6>
         <h6 class="card-subtitle mb-3 text-muted"><%= 'Data zlecenia: ' %><%= @order.ordered %></h6>
         <%= render partial: 'order_items_list' %>

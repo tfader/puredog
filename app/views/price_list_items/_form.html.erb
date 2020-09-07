@@ -1,15 +1,29 @@
 <%= form_with model: [@price_list, @price_list_item], autocomplete: :off, local: true do |form| %>
 
-  <% if @price_list_item.exam.present? %>
-    <div class="form-group">
-      <label><%= 'Badanie' %></label>
-      <%= form.text_field :exam_id, data: { autocomplete: autocomplete_exam_name_exams_path }, 'data-auto-focus' => true, :class => 'form-control select', :option => 'Small select', id: 'exam_id', autofocus: true, value: @price_list_item.exam.name_with_group_name %>
-    </div>
+  <% if Parameter.get_value('price_by_group') == 0 %>
+    <% if @price_list_item.exam.present? %>
+      <div class="form-group">
+        <label><%= 'Badanie' %></label>
+        <%= form.text_field :exam_id, data: { autocomplete: autocomplete_exam_name_exams_path }, 'data-auto-focus' => true, :class => 'form-control select', :option => 'Small select', id: 'exam_id', autofocus: true, value: @price_list_item.exam.name_with_group_name %>
+      </div>
+    <% else %>
+      <div class="form-group">
+        <label><%= 'Badanie' %></label>
+        <%= form.text_field :exam_id, data: { autocomplete: autocomplete_exam_name_exams_path }, 'data-auto-focus' => true, :class => 'form-control select', :option => 'Small select', id: 'exam_id', autofocus: true %>
+      </div>
+    <% end %>
   <% else %>
-    <div class="form-group">
-      <label><%= 'Badanie' %></label>
-      <%= form.text_field :exam_id, data: { autocomplete: autocomplete_exam_name_exams_path }, 'data-auto-focus' => true, :class => 'form-control select', :option => 'Small select', id: 'exam_id', autofocus: true %>
-    </div>
+    <% if @price_list_item.exam_group.present? %>
+      <div class="form-group">
+        <label><%= 'Grupa badań' %></label>
+        <%= form.text_field :exam_group_id, data: { autocomplete: autocomplete_exam_group_name_exam_groups_path }, 'data-auto-focus' => true, :class => 'form-control select', :option => 'Small select', id: 'exam_id', autofocus: true, value: @price_list_item.exam.name_with_group_name %>
+      </div>
+    <% else %>
+      <div class="form-group">
+        <label><%= 'Grupa badań' %></label>
+        <%= form.text_field :exam_group_id, data: { autocomplete: autocomplete_exam_group_name_exam_groups_path }, 'data-auto-focus' => true, :class => 'form-control select', :option => 'Small select', id: 'exam_id', autofocus: true %>
+      </div>
+    <% end %>
   <% end %>
 
 

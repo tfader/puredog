@@ -1,0 +1,26 @@
+<div class="row mt-3">
+  <div class="col">
+    <div class="d-flex justify-content-between">
+      <%= link_to 'Powrót', root_path, class: 'btn btn-sm btn-secondary' %>
+      <%= @where_you_are %>
+      <%= link_to 'Nowy', new_parameter_path, class: 'btn btn-sm btn-primary' %>
+    </div>
+  </div>
+</div>
+<div class="row mt-3">
+  <% @parameters.each do |parameter| %>
+    <div class="col-md-3 col-sm-12">
+      <div class="card m-1 mb-3">
+        <div class="card-body">
+          <h5 class="card-title"><%= parameter.param_name %></h5>
+          <h6 class="card-subtitle mb-2 text-muted"><%= parameter.value_type_desc %>
+          </h6>
+          <p class="card-text">
+            <%= parameter.param_value %>
+          </p>
+          <%= link_to 'Edycja', edit_parameter_path(parameter), class: 'card-link' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

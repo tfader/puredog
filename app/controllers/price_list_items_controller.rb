@@ -2,7 +2,11 @@ class PriceListItemsController < ApplicationController
 
   def index
     @price_list = PriceList.find(params[:price_list_id])
-    @price_list_items = @price_list.price_list_items.joins(:exam).order('exams.name').order('price_list_items.is_cito').all
+    if Parameter.get_value('price_by_group') == 0
+      @price_list_items = @price_list.price_list_items.joins(:exam).order('exams.name').order('price_list_items.is_cito').all
+    else
+      @price_list_items = @price_list.price_list_items.joins(:exam_group).order('exam_groups.name').order('price_list_items.is_cito').all
+    end
   end
   
   def new
@@ -14,7 +18,11 @@ class PriceListItemsController < ApplicationController
     @price_list = PriceList.find(params[:price_list_id])
     @price_list_item = PriceListItem.new
     @price_list_item.price_list = @price_list
-    @price_list_item.exam = Exam.search_by_name(params[:price_list_item][:exam_id])
+    if Parameter.get_value('price_by_group') == 0
+      @price_list_item.exam = Exam.search_by_name(params[:price_list_item][:exam_id])
+    else
+      @price_list_item.exam_group = ExamGroup.search_by_name(params[:price_list_item][:exam_group_id])
+    end
     @price_list_item.is_cito = params[:price_list_item][:is_cito]
     @price_list_item.price = params[:price_list_item][:price]
     if @price_list_item.valid?

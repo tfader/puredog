@@ -17,16 +17,24 @@
             <h5 class="card-title mb-4"><%= t order.order_status.name %></h5>
           </div>
           <h6 class="card-subtitle mb-4"><%= order.client.name_with_city %></h6>
+          <% if Parameter.get_value('multiple_patient_on_order') == 0 %>
+            <h6 class="card-subtitle mb-4"><%= order.patient.name_with_patron_name %></h6>
+          <% end %>
           <h6 class="card-subtitle mb-4"><span class="badge badge-success"><%= t order.order_status.name %></span></h6>
           <h6 class="card-subtitle mb-3 text-muted"><%= 'Zlecone: ' %><%= order.ordered %></h6>
           <h6 class="card-subtitle mb-3 text-muted"><%= 'Zarejestrowane: ' %><%= order.placed %></h6>
           <div class="d-flex mb-2">
-            <%= link_to 'Edycja', order_path(order), class: 'card-link' %>
+            <% if order.order_status.name == 'in_progress' or order.order_status.name == 'form' or order.order_status.name == 'to_do' %>
+              <%= link_to 'Edycja', order_path(order), class: 'card-link' %>
+            <% end %>
             <%= link_to 'Rozliczenie', order_show_fin_path(order), class: 'card-link pink' %>
             <%= link_to 'Usuń', order_path(order), method: :delete, class: 'card-link red' %>
           </div>
           <div class="d-flex mb-2">
             <%= link_to 'Archiwum', order_to_archive_path(order), method: :patch, class: 'card-link gray' %>
+            <% if order.order_status.name == 'done' %>
+              <%= link_to 'Otwórz ponownie', order_change_status_path(order, :new_status => 'in_progress'), method: :patch, class: 'card-link' %>
+            <% end %>
           </div>
         </div>
       </div>

@@ -1,8 +1,12 @@
-console.log('OK Dodane')
 document.querySelector("#add_order_item").innerHTML = "<%=j render 'new' %>"
-<% if params[:patient_id].present? %>
-  document.getElementById("exam_id").focus();
+
+<% if Parameter.get_value('multiple_patient_on_order') == 1 %>
+  <% if params[:patient_id].present? %>
+    document.getElementById("exam_id").focus();
+  <% else %>
+    document.getElementById("patient_id").focus();
+  <% end %>
 <% else %>
-  document.getElementById("patient_id").focus();
+  document.getElementById("exam_group_id").focus();
 <% end %>
 

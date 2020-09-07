@@ -5,9 +5,22 @@ class ExamGroupsController < ApplicationController
     redirect_to exam_groups_path
   end
 
+  def autocomplete_exam_group_name
+    name = params[:term].upcase
+    exam_groups = ExamGroup.where(
+        'upper(exam_groups.name) LIKE ?',
+        "%#{name}%"
+    ).order(:name).all
+    render :json => exam_groups.map { |exam_group| {:id => exam_group.id, :label => exam_group.name, :value => exam_group.name} }
+  end
+
   def index
     @where_you_are = 'Grupy badań'
     @exam_groups = ExamGroup.all.order(:name)
+    if params[:exam_group_id].present?
+      @exam_group = ExamGroup.find(params[:exam_group_id])
+      @exam_group_exams = @exam_group.exam_group_exams.all
+    end
   end
 
   def new

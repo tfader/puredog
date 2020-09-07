@@ -1,0 +1,21 @@
+<div class="d-flex justify-content-between">
+  <%= link_to ' Wróc ', orders_path, class: 'btn btn-sm btn-secondary' %>
+  <% case @order_status_id %>
+  <% when 'new' %>
+    <%= link_to ' Dodaj badanie ', new_order_order_item_path(@order), remote: true, class: 'btn btn-sm btn-primary', id: 'add-item' %>
+  <% when 'ready_to_do' %>
+    <%= link_to 'Do realizacji', order_change_status_path(@order, :new_status => 'to_do'), method: :patch, class: 'btn btn-sm btn-success' %>
+    <%= link_to ' Dodaj badanie ', new_order_order_item_path(@order), remote: true, class: 'btn btn-sm btn-primary', id: 'add-item' %>
+  <% when 'form' %>
+    <%= link_to 'Do realizacji', order_change_status_path(@order, :new_status => 'to_do'), method: :patch, class: 'btn btn-sm btn-success' %>
+    <%= link_to 'Dodaj badanie', new_order_order_item_path(@order), remote: true, class: 'btn btn-sm btn-primary', id: 'add-item' %>
+  <% when 'to_do' %>
+    <%= link_to 'Dodaj badanie', new_order_order_item_path(@order), remote: true, class: 'btn btn-sm btn-primary', id: 'add-item' %>
+  <% when 'in_progress' %>
+    <% if @order.check_all_results %>
+      <%= link_to 'Dodaj badanie', new_order_order_item_path(@order), remote: true, class: 'btn btn-sm btn-primary', id: 'add-item' %>
+      <%= link_to 'Zamknij zlecenie', order_change_status_path(@order, :new_status => 'done'), method: :patch, class: 'btn btn-sm btn-success' %>
+    <% end %>
+  <% else %>
+  <% end %>
+</div>
