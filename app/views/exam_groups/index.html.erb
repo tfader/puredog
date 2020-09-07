@@ -17,6 +17,7 @@
           </div>
           <%= link_to 'Edycja', edit_exam_group_path(exam_group), class: 'card-link' %>
           <%= link_to 'Badania ('+exam_group.exam_group_exams.count.to_s+')', exam_group_exam_group_exams_path(exam_group), remote: true, class: 'card-link' %>
+          <%= link_to 'Usuń', exam_group_path(exam_group), method: :delete, class: 'card-link red' %>
         </div>
       </div>
     </div>

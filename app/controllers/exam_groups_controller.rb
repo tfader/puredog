@@ -55,6 +55,12 @@ class ExamGroupsController < ApplicationController
     end
   end
 
+  def destroy
+    @exam_group = ExamGroup.find(params[:id])
+    @exam_group.delete
+    redirect_to exam_groups_path
+  end
+
   private
   def exam_group_params
     params.require(:exam_group).permit( :name)
