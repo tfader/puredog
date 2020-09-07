@@ -19,7 +19,7 @@
             <% end %>
           </div>
           <h6 class="card-subtitle mb-3 text-muted"><%= 'Klient: ' %><%= price_list.client.name %></h6>
-          <h6 class="card-subtitle mb-3 text-muted"><%= 'Ilość pozycko w cenniku: ' %><%= price_list.price_list_items.count %></h6>
+          <h6 class="card-subtitle mb-3 text-muted"><%= 'Ilość pozycji w cenniku: ' %><%= price_list.price_list_items.count %></h6>
           <%= link_to 'Edycja', edit_price_list_path(price_list), class: 'card-link' %>
           <%= link_to 'Pozycje', price_list_price_list_items_path(price_list), class: 'card-link' %>
           <%= link_to 'Dodaj', new_price_list_price_list_item_path(price_list), class: 'card-link' %>
