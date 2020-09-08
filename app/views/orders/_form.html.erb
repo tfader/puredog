@@ -12,6 +12,11 @@
   <% end %>
 
   <div class="form-group">
+    <label>Numer zlecenia</label>
+    <%= order_form.text_field :order_number, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
     <label>Data zlecenie</label>
     <%= order_form.text_field :ordered, class: 'form-control', type: 'date' %>
   </div>

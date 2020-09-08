@@ -13,7 +13,7 @@
       <div class="card m-1 mb-3">
         <div class="card-body">
           <div class="d-flex justify-content-between">
-            <h5 class="card-title mb-4"><%= order.id.to_s %></h5>
+            <h5 class="card-title mb-4"><%= order.id.to_s %><%= ' / ' %><%= order.order_number %></h5>
             <h5 class="card-title mb-4"><%= t order.order_status.name %></h5>
           </div>
           <h6 class="card-subtitle mb-4"><%= order.client.name_with_city %></h6>
@@ -24,7 +24,7 @@
           <h6 class="card-subtitle mb-3 text-muted"><%= 'Zlecone: ' %><%= order.ordered %></h6>
           <h6 class="card-subtitle mb-3 text-muted"><%= 'Zarejestrowane: ' %><%= order.placed %></h6>
           <div class="d-flex mb-2">
-            <% if order.order_status.name == 'in_progress' or order.order_status.name == 'form' or order.order_status.name == 'to_do' %>
+            <% if order.order_status.name == 'in_progress' or order.order_status.name == 'form' or order.order_status.name == 'to_do' or order.order_status.name == 'new' %>
               <%= link_to 'Edycja', order_path(order), class: 'card-link' %>
             <% end %>
             <%= link_to 'Rozliczenie', order_show_fin_path(order), class: 'card-link pink' %>

@@ -77,7 +77,7 @@ class OrdersController < ApplicationController
 
   private
   def order_params
-    params.require(:order).permit(:placed, :ordered, :is_cito, :patient_id )
+    params.require(:order).permit(:placed, :ordered, :is_cito, :patient_id, :order_number )
   end
 
 end
